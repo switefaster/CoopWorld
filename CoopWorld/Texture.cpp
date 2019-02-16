@@ -16,5 +16,5 @@ Texture::~Texture()
 
 ID3D11ShaderResourceView* Texture::GetShaderResourceView()
 {
-    mShaderResourceView.Get();
+    return mShaderResourceView.Get();
 }

@@ -5,16 +5,10 @@
 
 struct Material
 {
-    Material()
-    {
-        ZeroMemory( this, sizeof( this ) );
-    }
     XMFLOAT4 Ambient;
     XMFLOAT4 Diffuse;
     XMFLOAT4 Specular;
     XMFLOAT4 Reflect;
-	UINT HasTexture;
-	XMFLOAT3 pad;
 };
 
 class Mesh {
@@ -63,9 +57,30 @@ class Mesh {
             context->DrawIndexed( mIndexCount, 0, 0 );
         }
 
-		Texture* GetTexture() const
+        void SetTexture( Texture* texture )
+        {
+            mTexture = texture;
+        }
+
+        Texture* GetTexture() const
+        {
+            return mTexture;
+        }
+
+		bool HasTexture()
 		{
-			return mTexture;
+			return mTexture != nullptr;
+		}
+
+		void SetMaterial(const Material& mat)
+		{
+			mMaterial = mat;
+			mMaterial.Ambient.w = HasTexture() ? 1.0f : 0.0f;
+		}
+
+		Material GetMaterial() const
+		{
+			return mMaterial;
 		}
 
     protected:
@@ -79,6 +94,7 @@ class Mesh {
 
         D3D11_PRIMITIVE_TOPOLOGY mPrimitiveTopology;
 
-		Texture* mTexture;
-};
+        Texture* mTexture = nullptr;
 
+		Material mMaterial;
+};

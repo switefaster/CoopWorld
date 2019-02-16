@@ -3,6 +3,7 @@
 #include "D3DApplication.h"
 #include "Mesh.h"
 #include "EffectManager.h"
+#include "Renderer.h"
 
 class DemoApp : public D3DApplication {
     public:
@@ -17,7 +18,15 @@ class DemoApp : public D3DApplication {
         void Draw( const Timer& dt ) override;
 
     private:
-        EffectManager mEffectManager;
-        std::unique_ptr<Mesh<ColorEffect::Vertex>> mTriangleMesh;
+        std::unique_ptr<EffectManager> mEffectManager;
+        std::unique_ptr<Mesh> mTriangleMesh;
+		std::unique_ptr<RenderItem> mRenderItem;
+		std::unique_ptr<Renderer> mRenderer;
+
+		Scene mScene;
+		Camera mCamera;
+
+		float mRotY;
+		float mPitch;
 };
 

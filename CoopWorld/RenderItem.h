@@ -5,7 +5,7 @@
 
 class RenderItem {
     public:
-        RenderItem();
+        RenderItem( Mesh* mesh );
         RenderItem( XMFLOAT3 pos, XMFLOAT3 rot, float scale, Mesh* mesh );
         ~RenderItem() = default;
 
@@ -19,15 +19,18 @@ class RenderItem {
         XMFLOAT3 GetPosition() const;
         XMFLOAT3 GetRotation() const;
         float GetScale() const;
+        void SetTexTransform( FXMMATRIX M );
         Mesh* GetMesh() const;
 
         XMMATRIX BuildWorldMatrix();
+        XMMATRIX GetTexTransform();
 
     private:
         XMFLOAT3 mPosition;
         XMFLOAT3 mRotation;
-        float mScale;
-        XMMATRIX mWorldMatrix = XMMatrixIdentity();
+        float mScale = 1.0f;
+        XMFLOAT4X4 mWorldMatrix = Identity4x4;
+        XMFLOAT4X4 mTexTransform = Identity4x4;
 
         Mesh* mMesh;
 

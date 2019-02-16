@@ -9,7 +9,7 @@ struct DirectionalLight
     XMFLOAT4 Diffuse;
     XMFLOAT4 Specular;
     XMFLOAT3 Direction;
-    FLOAT pad;
+	float pad;
 };
 
 struct PointLight
@@ -22,7 +22,7 @@ struct PointLight
     float Range;
 
     XMFLOAT3 Att;
-    FLOAT pad;
+	float pad;
 };
 
 struct SpotLight
@@ -38,7 +38,7 @@ struct SpotLight
     float Spot;
 
     XMFLOAT3 Att;
-    FLOAT pad;
+	float pad;
 };
 
 /*
@@ -48,7 +48,7 @@ template<typename T>
 using CBWrapper = std::pair<T, bool>;
 
 template<typename T>
-inline void SetDirty( CBWrapper<T> wrapper, bool dirty )
+inline void SetDirty( CBWrapper<T>& wrapper, bool dirty )
 {
     wrapper.second = dirty;
 }
@@ -70,14 +70,14 @@ class BasicEffect : public Effect {
             float FogStart;
             XMFLOAT3 FogColor;
             XMFLOAT3 LightCount;
-            FLOAT pad;
+			float pad;
         };
         struct CBObject
         {
-            XMFLOAT4X4 World;
-            XMFLOAT4X4 WorldInvTranspose;
-            XMFLOAT4X4 WorldViewProj;
-            XMFLOAT4X4 TexTransform;
+            XMFLOAT4X4 World = Identity4x4;
+            XMFLOAT4X4 WorldInvTranspose = Identity4x4;
+            XMFLOAT4X4 WorldViewProj = Identity4x4;
+            XMFLOAT4X4 TexTransform = Identity4x4;
             Material Material;
         };
     public:

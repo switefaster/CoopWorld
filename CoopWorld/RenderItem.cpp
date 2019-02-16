@@ -2,9 +2,9 @@
 
 
 
-RenderItem::RenderItem()
+RenderItem::RenderItem( Mesh* mesh ) :
+    mMesh( mesh )
 {
-    ZeroMemory( this, sizeof( this ) );
 }
 
 RenderItem::RenderItem( XMFLOAT3 pos, XMFLOAT3 rot, float scale, Mesh* mesh ) :
@@ -96,6 +96,11 @@ float RenderItem::GetScale() const
     return mScale;
 }
 
+void RenderItem::SetTexTransform( FXMMATRIX M )
+{
+    XMStoreFloat4x4( &mTexTransform, M );
+}
+
 Mesh* RenderItem::GetMesh() const
 {
     return mMesh;
@@ -108,9 +113,14 @@ XMMATRIX RenderItem::BuildWorldMatrix()
         XMMATRIX P = XMMatrixTranslationFromVector( DirectX::XMLoadFloat3( &mPosition ) );
         XMMATRIX R = XMMatrixRotationX( mRotation.x ) * XMMatrixRotationY( mRotation.y ) * XMMatrixRotationZ( mRotation.z );
         XMMATRIX S = XMMatrixScalingFromVector( XMVectorReplicate( mScale ) );
-        mWorldMatrix = S * R * P;
+        XMStoreFloat4x4( &mWorldMatrix, S * R * P );
         mDirty = false;
     }
 
-    return mWorldMatrix;
+    return XMLoadFloat4x4( &mWorldMatrix );
+}
+
+XMMATRIX RenderItem::GetTexTransform()
+{
+    return XMLoadFloat4x4( &mTexTransform );
 }

@@ -21,9 +21,9 @@ void Effect::Apply( ID3D11DeviceContext* context )
     context->IASetInputLayout( mInputLayout.Get() );
     UpdateConstantBuffers( context );
 
-    for ( auto& v : mConstantBuffers )
+    for ( auto&[slot, buffer] : mConstantBuffers )
     {
-        context->VSSetConstantBuffers( v.first, 1, v.second.GetAddressOf() );
+        context->VSSetConstantBuffers( slot, 1, buffer.GetAddressOf() );
     }
 }
 

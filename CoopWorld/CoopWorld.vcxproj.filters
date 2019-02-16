@@ -81,6 +81,9 @@
     <ClCompile Include="BasicEffect.cpp">
       <Filter>源文件\Effect</Filter>
     </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>源文件\Component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="D3DApplication.h">
@@ -122,16 +125,17 @@
     <ClInclude Include="BasicEffect.h">
       <Filter>头文件\Effect</Filter>
     </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>头文件\Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="color.hlsl">
       <Filter>着色器</Filter>
     </None>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <FxCompile Include="basic.hlsl">
+    <None Include="basic.hlsl">
       <Filter>着色器</Filter>
-    </FxCompile>
+    </None>
   </ItemGroup>
 </Project>

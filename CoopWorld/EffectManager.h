@@ -6,12 +6,10 @@
 
 class EffectManager {
     public:
-        EffectManager() = default;
+        EffectManager( ID3D11Device* device );
         ~EffectManager() = default;
 
-        void Initialize( ID3D11Device* device );
-
         std::unique_ptr<ColorEffect> ColorFX;
-		std::unique_ptr<BasicEffect> BasicFX;
+        std::unique_ptr<BasicEffect> BasicFX;
 };
 

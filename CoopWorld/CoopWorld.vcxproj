@@ -126,6 +126,7 @@
   <ItemGroup>
     <ClCompile Include="AppEntry.cpp" />
     <ClCompile Include="BasicEffect.cpp" />
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="ColorEffect.cpp" />
     <ClCompile Include="D3DApplication.cpp" />
     <ClCompile Include="D3DUtilities.cpp" />
@@ -140,6 +141,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BasicEffect.h" />
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="ColorEffect.h" />
     <ClInclude Include="D3DApplication.h" />
     <ClInclude Include="D3DUtilities.h" />
@@ -173,7 +175,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="basic.hlsl">
+    <None Include="basic.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Geometry</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">4.0</ShaderModel>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Geometry</ShaderType>
@@ -182,7 +184,8 @@
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">4.0</ShaderModel>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Geometry</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">4.0</ShaderModel>
-    </FxCompile>
+      <FileType>Document</FileType>
+    </None>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

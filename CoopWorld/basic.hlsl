@@ -42,8 +42,6 @@ struct Material
     float4 Diffuse;
     float4 Specular;
     float4 Reflect;
-    uint HasTexture;
-    float3 pad;
 };
 
 void ComputeDirectionalLight(Material mat, DirectionalLight L,
@@ -206,7 +204,7 @@ float4 PS(VertexOut pin) : SV_Target
     toEye /= distToEye;
     
     float4 texColor = float4(1.0f, 1.0f, 1.0f, 1.0f);
-    if (gMaterial.HasTexture != 0)
+    if (gMaterial.Ambient.w != 0)
     {
         texColor = gDiffuseMap.Sample(gSampler, pin.Tex);
     }
@@ -219,10 +217,10 @@ float4 PS(VertexOut pin) : SV_Target
         float4 specular = float4(0.0f, 0.0f, 0.0f, 0.0f);
 
         [unroll]
-        for (int i = 0; i < gLightCount; i++)
+        for (int i = 0; i < gLightCount.x; i++)
         {
             float4 A, D, S;
-            ComputeDirectionalLight(gMaterial, gDirLights[i], pin.NormalW, toEye, ambient, diffuse, specular);
+            ComputeDirectionalLight(gMaterial, gDirLights[i], pin.NormalW, toEye, A, D, S);
             ambient += A;
             diffuse += D;
             specular += S;
