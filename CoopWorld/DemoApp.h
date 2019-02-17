@@ -4,6 +4,7 @@
 #include "Mesh.h"
 #include "EffectManager.h"
 #include "Renderer.h"
+#include "FontManager.h"
 
 class DemoApp : public D3DApplication {
     public:
@@ -19,14 +20,13 @@ class DemoApp : public D3DApplication {
 
     private:
         std::unique_ptr<EffectManager> mEffectManager;
-        std::unique_ptr<Mesh> mTriangleMesh;
+        std::unique_ptr<Mesh> mSphereMesh;
 		std::unique_ptr<RenderItem> mRenderItem;
 		std::unique_ptr<Renderer> mRenderer;
+		std::unique_ptr<TextureManager> mTextureManager;
+		std::unique_ptr<FontManager> mFontManager;
 
 		Scene mScene;
 		Camera mCamera;
-
-		float mRotY;
-		float mPitch;
 };
 

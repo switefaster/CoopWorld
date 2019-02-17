@@ -24,6 +24,7 @@ void Effect::Apply( ID3D11DeviceContext* context )
     for ( auto&[slot, buffer] : mConstantBuffers )
     {
         context->VSSetConstantBuffers( slot, 1, buffer.GetAddressOf() );
+        context->PSSetConstantBuffers( slot, 1, buffer.GetAddressOf() );
     }
 }
 

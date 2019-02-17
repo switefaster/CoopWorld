@@ -203,7 +203,8 @@ float4 PS(VertexOut pin) : SV_Target
     float distToEye = length(toEye);
     toEye /= distToEye;
     
-    float4 texColor = float4(1.0f, 1.0f, 1.0f, 1.0f);
+    float4 texColor = gMaterial.Ambient;
+    texColor.a = 1.0f;
     if (gMaterial.Ambient.w != 0)
     {
         texColor = gDiffuseMap.Sample(gSampler, pin.Tex);

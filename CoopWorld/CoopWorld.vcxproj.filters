@@ -84,6 +84,9 @@
     <ClCompile Include="Camera.cpp">
       <Filter>源文件\Component</Filter>
     </ClCompile>
+    <ClCompile Include="FontManager.cpp">
+      <Filter>源文件\Component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="D3DApplication.h">
@@ -126,6 +129,12 @@
       <Filter>头文件\Effect</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
+      <Filter>头文件\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshLoader.hpp">
+      <Filter>头文件\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="FontManager.h">
       <Filter>头文件\Component</Filter>
     </ClInclude>
   </ItemGroup>

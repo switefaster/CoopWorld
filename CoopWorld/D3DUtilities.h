@@ -8,18 +8,24 @@
 #include <sstream>
 #include <wrl.h>
 #include <cassert>
+#include <minwindef.h>
 
 #include "DXException.h"
 
 using namespace DirectX;
 using Microsoft::WRL::ComPtr;
 
-constexpr XMFLOAT4X4 Identity4x4 = XMFLOAT4X4(
-	1.0f, 0.0f, 0.0f, 0.0f,
-	0.0f, 1.0f, 0.0f, 0.0f,
-	0.0f, 0.0f, 1.0f, 0.0f,
-	0.0f, 0.0f, 0.0f, 1.0f
-);
+#ifdef min
+#undef min
+#endif
+
+constexpr XMFLOAT4X4 Identity4x4 =
+    XMFLOAT4X4(
+        1.0f, 0.0f, 0.0f, 0.0f,
+        0.0f, 1.0f, 0.0f, 0.0f,
+        0.0f, 0.0f, 1.0f, 0.0f,
+        0.0f, 0.0f, 0.0f, 1.0f
+    );
 
 class D3DUtilities {
     public:
@@ -31,6 +37,7 @@ class D3DUtilities {
         static Microsoft::WRL::ComPtr<ID3DBlob> LoadBinary( const std::wstring& file );
         static Microsoft::WRL::ComPtr<ID3DBlob> CompileShader( const std::wstring& fileName, const D3D_SHADER_MACRO* defines, const std::string& entry, const std::string& target );
         static XMMATRIX InvTranspose( FXMMATRIX M );
+		static std::wstring str_to_wstr(const std::string& str);
 };
 
 #ifndef ThrowIfFailed

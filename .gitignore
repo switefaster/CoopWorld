@@ -11,6 +11,8 @@
 *.o
 *.obj
 
+!CoopWorld/*.obj
+
 # Precompiled Headers
 *.gch
 *.pch

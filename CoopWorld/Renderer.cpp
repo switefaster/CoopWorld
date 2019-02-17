@@ -17,6 +17,7 @@ void Renderer::Draw( RenderItem* itemToDraw, const Scene& scene, const Camera& c
     mFXMan->BasicFX->SetWorldInvTranspose( XMMatrixTranspose( wInvTrans ) );
     mFXMan->BasicFX->SetWorldViewProj( XMMatrixTranspose( XMMatrixMultiply( world, viewProj ) ) );
     mFXMan->BasicFX->SetTexTransform( XMMatrixTranspose( itemToDraw->GetTexTransform() ) );
+    mFXMan->BasicFX->SetMaterial( itemToDraw->GetMesh()->GetMaterial() );
 
     if ( itemToDraw->GetMesh()->HasTexture() != 0 )
     {

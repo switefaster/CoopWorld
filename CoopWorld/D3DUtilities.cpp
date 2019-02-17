@@ -51,3 +51,19 @@ XMMATRIX D3DUtilities::InvTranspose( FXMMATRIX M )
     A = XMMatrixInverse( &det, A );
     return XMMatrixTranspose( A );
 }
+
+std::wstring D3DUtilities::str_to_wstr(const std::string & str)
+{
+	size_t i;
+	std::string curLocale = setlocale(LC_ALL, NULL);
+	setlocale(LC_ALL, "chs");
+	const char* _source = str.c_str();
+	size_t _dsize = str.size() + 1;
+	wchar_t* _dest = new wchar_t[_dsize];
+	wmemset(_dest, 0x0, _dsize);
+	mbstowcs_s(&i, _dest, _dsize, _source, _dsize);
+	std::wstring result = _dest;
+	delete[] _dest;
+	setlocale(LC_ALL, curLocale.c_str());
+	return result;
+}
