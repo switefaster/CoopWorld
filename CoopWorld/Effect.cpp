@@ -1,6 +1,6 @@
 #include "Effect.h"
 
-
+std::unordered_map<std::vector<D3D11_INPUT_ELEMENT_DESC>, ComPtr<ID3D11InputLayout>, IL_VECTOR_HASH> Effect::InputLayoutCache{};
 
 Effect::Effect( ID3D11Device* device, const std::wstring& fileName, const D3D_SHADER_MACRO* defines, const std::vector<D3D11_INPUT_ELEMENT_DESC>& inputLayout )
 {
@@ -11,14 +11,17 @@ Effect::Effect( ID3D11Device* device, const std::wstring& fileName, const D3D_SH
     psByteCode = D3DUtilities::CompileShader( fileName, defines, "PS", "ps_4_0" );
     ThrowIfFailed( device->CreateVertexShader( vsByteCode->GetBufferPointer(), vsByteCode->GetBufferSize(), nullptr, &mVertexShader ) );
     ThrowIfFailed( device->CreatePixelShader( psByteCode->GetBufferPointer(), psByteCode->GetBufferSize(), nullptr, &mPixelShader ) );
-    ThrowIfFailed( device->CreateInputLayout( inputLayout.data(), inputLayout.size(), vsByteCode->GetBufferPointer(), vsByteCode->GetBufferSize(), &mInputLayout ) );
+	if (InputLayoutCache.count(inputLayout) <= 0) {
+		ThrowIfFailed(device->CreateInputLayout(inputLayout.data(), inputLayout.size(), vsByteCode->GetBufferPointer(), vsByteCode->GetBufferSize(), &InputLayoutCache[inputLayout]));
+	}
+	mInputLayout = InputLayoutCache[inputLayout].Get();
 }
 
 void Effect::Apply( ID3D11DeviceContext* context )
 {
     context->VSSetShader( mVertexShader.Get(), nullptr, 0 );
     context->PSSetShader( mPixelShader.Get(), nullptr, 0 );
-    context->IASetInputLayout( mInputLayout.Get() );
+    context->IASetInputLayout( mInputLayout );
     UpdateConstantBuffers( context );
 
     for ( auto&[slot, buffer] : mConstantBuffers )

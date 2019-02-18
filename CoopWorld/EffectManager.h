@@ -3,6 +3,7 @@
 #include "D3DUtilities.h"
 #include "ColorEffect.h"
 #include "BasicEffect.h"
+#include "ShadowEffect.h"
 
 class EffectManager {
     public:
@@ -11,5 +12,6 @@ class EffectManager {
 
         std::unique_ptr<ColorEffect> ColorFX;
         std::unique_ptr<BasicEffect> BasicFX;
+		std::unique_ptr<ShadowEffect> ShadowFX;
 };
 

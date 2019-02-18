@@ -18,18 +18,23 @@ bool DemoApp::Initialize()
         return false;
     }
 
+    mStateManager = std::make_unique<StateManager>( mD3DDevice.Get() );
     mFontManager = std::make_unique<FontManager>( mD3DDevice.Get() );
     mTextureManager = std::make_unique<TextureManager>( mD3DDevice.Get() );
-    mSphereMesh = std::move( MeshLoader::LoadMesh( mD3DDevice.Get(), "sphere.obj", mTextureManager.get() )[0] );
+    mSphereMesh = std::move( MeshLoader::LoadMesh( mD3DDevice.Get(), "resources/sphere.obj", mTextureManager.get() )[0] );
+    mPlateMesh = std::move( MeshLoader::LoadMesh( mD3DDevice.Get(), "resources/plate.obj", mTextureManager.get() )[0] );
     mEffectManager = std::make_unique<EffectManager>( mD3DDevice.Get() );
-    mRenderer = std::make_unique<Renderer>( mD3DContext.Get(), mEffectManager.get() );
+    mRenderer = std::make_unique<Renderer>( mD3DDevice.Get(), mD3DContext.Get(), mEffectManager.get(), mStateManager.get() );
     mRenderItem = std::make_unique<RenderItem>( mSphereMesh.get() );
-    mRenderItem->Offset( 0.0f, 0.0f, 10.0f );
+    mPlateItem = std::make_unique<RenderItem>( mPlateMesh.get() );
+    mRenderItem->Offset( 0.0f, 3.0f, 0.0f );
     mScene.LightCount.x = 1;
     mScene.Lights[0].Ambient = XMFLOAT4( 0.2f, 0.2f, 0.2f, 1.0f );
     mScene.Lights[0].Diffuse = XMFLOAT4( 0.6f, 0.6f, 0.6f, 1.0f );
     mScene.Lights[0].Specular = XMFLOAT4( 0.5f, 0.5f, 0.5f, 1.0f );
     mScene.Lights[0].Direction = XMFLOAT3( 0.57735f, -0.57735f, 0.57735f );
+    mScene.Bounds.Center = XMFLOAT3( 0.0f, 0.0f, 0.0f );
+    mScene.Bounds.Radius = sqrt( 10 * 10 + 10 * 10 );
     return true;
 }
 
@@ -90,8 +95,12 @@ void DemoApp::Draw( const Timer& dt )
     assert( mSwapChain != nullptr );
     mD3DContext->ClearRenderTargetView( mRenderTargetView.Get(), reinterpret_cast<const float*>( &Colors::Black ) );
     mD3DContext->ClearDepthStencilView( mDepthStencilView.Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0 );
-    mRenderer->Draw( mRenderItem.get(), mScene, mCamera );
-    mRenderer->Post();
-	mFontManager->DrawFont(mD3DContext.Get(), L"Arial", L"Hello World!", 128.0f, 0.0f, 0.0f, 0xFFFFFFFF);
+    mRenderer->Prepare( mScene, mCamera );
+    mRenderer->Draw( mRenderItem.get() );
+    mRenderer->Draw( mPlateItem.get() );
+    mD3DContext->RSSetViewports( 1, &mViewport );
+    mD3DContext->OMSetRenderTargets( 1, mRenderTargetView.GetAddressOf(), mDepthStencilView.Get() );
+    mRenderer->Post( mCamera );
+    mFontManager->DrawFont( mD3DContext.Get(), L"Arial", L"Hello World!", 128.0f, 0.0f, 0.0f, 0xFFFFFFFF );
     ThrowIfFailed( mSwapChain->Present( 0, 0 ) );
 }

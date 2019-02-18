@@ -22,9 +22,12 @@ class DemoApp : public D3DApplication {
         std::unique_ptr<EffectManager> mEffectManager;
         std::unique_ptr<Mesh> mSphereMesh;
 		std::unique_ptr<RenderItem> mRenderItem;
+		std::unique_ptr<Mesh> mPlateMesh;
+		std::unique_ptr<RenderItem> mPlateItem;
 		std::unique_ptr<Renderer> mRenderer;
 		std::unique_ptr<TextureManager> mTextureManager;
 		std::unique_ptr<FontManager> mFontManager;
+		std::unique_ptr<StateManager> mStateManager;
 
 		Scene mScene;
 		Camera mCamera;

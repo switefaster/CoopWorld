@@ -85,7 +85,7 @@ class MeshLoader {
                 {
                     aiString str;
                     material->GetTexture( aiTextureType_DIFFUSE, 0, &str );
-                    rmesh->SetTexture( texMan->getTexture( D3DUtilities::str_to_wstr( str.C_Str() ) ) );
+                    rmesh->SetTexture( texMan->GetTexture( D3DUtilities::str_to_wstr(directory) + L"\\" + D3DUtilities::str_to_wstr( str.C_Str() ) ) );
                 }
 
                 aiColor3D colorDiff;

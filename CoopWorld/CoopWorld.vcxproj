@@ -87,7 +87,8 @@
     </ClCompile>
     <PostBuildEvent>
       <Command>copy *.hlsl "$(outdir)"
-copy *.obj "$(outdir)"</Command>
+mkdir "$(outdir)resources"
+copy resources\ "$(outdir)resources"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -114,7 +115,8 @@ copy *.obj "$(outdir)"</Command>
     </Link>
     <PostBuildEvent>
       <Command>copy *.hlsl "$(outdir)"
-copy *.obj "$(outdir)"</Command>
+mkdir "$(outdir)resources"
+copy resources\ "$(outdir)resources"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -145,6 +147,8 @@ copy *.obj "$(outdir)"</Command>
     <ClCompile Include="FontManager.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="RenderItem.cpp" />
+    <ClCompile Include="ShadowEffect.cpp" />
+    <ClCompile Include="ShadowMap.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Timer.cpp" />
   </ItemGroup>
@@ -163,6 +167,8 @@ copy *.obj "$(outdir)"</Command>
     <ClInclude Include="MeshLoader.hpp" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="RenderItem.h" />
+    <ClInclude Include="ShadowEffect.h" />
+    <ClInclude Include="ShadowMap.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Timer.h" />
   </ItemGroup>
@@ -193,6 +199,19 @@ copy *.obj "$(outdir)"</Command>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">4.0</ShaderModel>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Geometry</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">4.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Geometry</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">4.0</ShaderModel>
+      <FileType>Document</FileType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="shadow.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Geometry</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">4.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Geometry</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">4.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Geometry</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">4.0</ShaderModel>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Geometry</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">4.0</ShaderModel>
       <FileType>Document</FileType>

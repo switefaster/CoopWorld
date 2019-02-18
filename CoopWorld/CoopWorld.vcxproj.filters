@@ -16,9 +16,6 @@
     <Filter Include="头文件\App">
       <UniqueIdentifier>{51b8ad59-25a3-4b38-b313-105221f3f659}</UniqueIdentifier>
     </Filter>
-    <Filter Include="头文件\Effect">
-      <UniqueIdentifier>{87989d44-21d1-40e3-bb8a-a4ada69f9bfa}</UniqueIdentifier>
-    </Filter>
     <Filter Include="头文件\Util">
       <UniqueIdentifier>{c42132a1-75ce-413e-a514-7e73481c3b43}</UniqueIdentifier>
     </Filter>
@@ -34,11 +31,14 @@
     <Filter Include="头文件\Component">
       <UniqueIdentifier>{100406d7-0d32-4acb-bde6-cce41da31d8d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="源文件\Effect">
-      <UniqueIdentifier>{46d04da9-81ac-47c4-b79d-5dac73b39c8d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="着色器">
       <UniqueIdentifier>{47986a1d-d781-465d-a332-832c5dc03d94}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Component\Effect">
+      <UniqueIdentifier>{46d04da9-81ac-47c4-b79d-5dac73b39c8d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Component\Effect">
+      <UniqueIdentifier>{87989d44-21d1-40e3-bb8a-a4ada69f9bfa}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -67,24 +67,30 @@
       <Filter>源文件\App</Filter>
     </ClCompile>
     <ClCompile Include="Effect.cpp">
-      <Filter>源文件\Effect</Filter>
+      <Filter>源文件\Component\Effect</Filter>
     </ClCompile>
     <ClCompile Include="ColorEffect.cpp">
-      <Filter>源文件\Effect</Filter>
-    </ClCompile>
-    <ClCompile Include="EffectManager.cpp">
-      <Filter>源文件\Effect</Filter>
+      <Filter>源文件\Component\Effect</Filter>
     </ClCompile>
     <ClCompile Include="Texture.cpp">
       <Filter>源文件\Component</Filter>
     </ClCompile>
     <ClCompile Include="BasicEffect.cpp">
-      <Filter>源文件\Effect</Filter>
+      <Filter>源文件\Component\Effect</Filter>
     </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>源文件\Component</Filter>
     </ClCompile>
     <ClCompile Include="FontManager.cpp">
+      <Filter>源文件\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="ShadowMap.cpp">
+      <Filter>源文件\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="ShadowEffect.cpp">
+      <Filter>源文件\Component\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectManager.cpp">
       <Filter>源文件\Component</Filter>
     </ClCompile>
   </ItemGroup>
@@ -114,19 +120,16 @@
       <Filter>头文件\Util</Filter>
     </ClInclude>
     <ClInclude Include="Effect.h">
-      <Filter>头文件\Effect</Filter>
+      <Filter>头文件\Component\Effect</Filter>
     </ClInclude>
     <ClInclude Include="ColorEffect.h">
-      <Filter>头文件\Effect</Filter>
-    </ClInclude>
-    <ClInclude Include="EffectManager.h">
-      <Filter>头文件\Effect</Filter>
+      <Filter>头文件\Component\Effect</Filter>
     </ClInclude>
     <ClInclude Include="Texture.h">
       <Filter>头文件\Component</Filter>
     </ClInclude>
     <ClInclude Include="BasicEffect.h">
-      <Filter>头文件\Effect</Filter>
+      <Filter>头文件\Component\Effect</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>头文件\Component</Filter>
@@ -137,6 +140,15 @@
     <ClInclude Include="FontManager.h">
       <Filter>头文件\Component</Filter>
     </ClInclude>
+    <ClInclude Include="ShadowMap.h">
+      <Filter>头文件\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="ShadowEffect.h">
+      <Filter>头文件\Component\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="EffectManager.h">
+      <Filter>头文件\Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="color.hlsl">
@@ -144,6 +156,9 @@
     </None>
     <None Include="packages.config" />
     <None Include="basic.hlsl">
+      <Filter>着色器</Filter>
+    </None>
+    <None Include="shadow.hlsl">
       <Filter>着色器</Filter>
     </None>
   </ItemGroup>

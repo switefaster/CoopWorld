@@ -146,6 +146,28 @@ void ComputeSpotLight(Material mat, SpotLight L, float3 pos, float3 normal, floa
     spec *= att;
 }
 
+static const float SMAP_SIZE = 2048.0f;
+static const float SMAP_DX = 1.0f / SMAP_SIZE;
+float CalcShadowFactor(SamplerComparisonState comSampler, Texture2D smap, float4 shadH)
+{
+    shadH.xyz /= shadH.w;
+    float depth = shadH.z;
+    const float dx = SMAP_DX;
+    float percentLit = 0.0f;
+    const float2 offsets[9] =
+    {
+        float2(-dx, -dx), float2(0.0f, -dx), float2(dx, -dx),
+        float2(-dx, 0.0f), float2(0.0f, 0.0f), float2(dx, 0.0f),
+        float2(-dx, dx), float2(0.0f, dx), float2(dx, dx)
+    };
+    [unroll]
+    for (int i = 0; i < 9; i++)
+    {
+        percentLit += smap.SampleCmpLevelZero(comSampler, shadH.xy + offsets[i], depth).r;
+    }
+    return percentLit /= 9.0f;
+}
+
 cbuffer cbChangesPerObject : register(b0)
 {
     float4x4 gWorld;
@@ -158,6 +180,7 @@ cbuffer cbChangesPerObject : register(b0)
 cbuffer cbChangesPerFrame : register(b1)
 {
     DirectionalLight gDirLights[3];
+    float4x4 gShadowTransform;
     float3 gEyePosW;
     
     float gFogStart;
@@ -167,9 +190,12 @@ cbuffer cbChangesPerFrame : register(b1)
     float gPad0;
 }
 
-Texture2D gDiffuseMap : register(t0);
+SamplerState samLinear : register(s0);
 
-SamplerState gSampler : register(s0);
+SamplerComparisonState samShadow : register(s1);
+
+Texture2D gDiffuseMap : register(t0);
+Texture2D gShadowMap : register(t1);
 
 struct VertexIn
 {
@@ -183,7 +209,8 @@ struct VertexOut
     float4 PosH : SV_POSITION;
     float3 PosW : POSITION;
     float3 NormalW : NORMAL;
-    float2 Tex : TEXCOORD;
+    float2 Tex : TEXCOORD0;
+    float4 ShadowPosH : TEXCOORD1;
 };
 
 VertexOut VS(VertexIn vin)
@@ -193,6 +220,7 @@ VertexOut VS(VertexIn vin)
     vout.NormalW = mul(vin.NormalL, (float3x3) gWorldInvTranspose);
     vout.PosH = mul(float4(vin.PosL, 1.0f), gWorldViewProj);
     vout.Tex = mul(float4(vin.Tex, 0.0f, 1.0f), gTexTransform).xy;
+    vout.ShadowPosH = mul(float4(vout.PosW, 1.0f), gShadowTransform);
     return vout;
 }
 
@@ -207,7 +235,7 @@ float4 PS(VertexOut pin) : SV_Target
     texColor.a = 1.0f;
     if (gMaterial.Ambient.w != 0)
     {
-        texColor = gDiffuseMap.Sample(gSampler, pin.Tex);
+        texColor = gDiffuseMap.Sample(samLinear, pin.Tex);
     }
 
     float4 litColor = texColor;
@@ -217,14 +245,16 @@ float4 PS(VertexOut pin) : SV_Target
         float4 diffuse = float4(0.0f, 0.0f, 0.0f, 0.0f);
         float4 specular = float4(0.0f, 0.0f, 0.0f, 0.0f);
 
+        float3 shadow = float3(1.0f, 1.0f, 1.0f);
+        shadow[0] = CalcShadowFactor(samShadow, gShadowMap, pin.ShadowPosH);
         [unroll]
         for (int i = 0; i < gLightCount.x; i++)
         {
             float4 A, D, S;
             ComputeDirectionalLight(gMaterial, gDirLights[i], pin.NormalW, toEye, A, D, S);
             ambient += A;
-            diffuse += D;
-            specular += S;
+            diffuse += D * shadow[i];
+            specular += S * shadow[i];
         }
         litColor = texColor * (ambient + diffuse) + specular;
     }

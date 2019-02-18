@@ -67,3 +67,14 @@ std::wstring D3DUtilities::str_to_wstr(const std::string & str)
 	setlocale(LC_ALL, curLocale.c_str());
 	return result;
 }
+
+bool operator ==(const D3D11_INPUT_ELEMENT_DESC& l, const D3D11_INPUT_ELEMENT_DESC& r)
+{
+	return (l.AlignedByteOffset == r.AlignedByteOffset
+		&& l.Format == r.Format
+		&& l.InputSlot == r.InputSlot
+		&& l.InputSlotClass == r.InputSlotClass
+		&& l.InstanceDataStepRate == r.InstanceDataStepRate
+		&& l.SemanticIndex == r.SemanticIndex
+		&& (std::strcmp(l.SemanticName, r.SemanticName) == 0));
+}

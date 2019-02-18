@@ -60,6 +60,11 @@ void BasicEffect::SetLights( DirectionalLight lights[3], UINT count )
     SetDirty( mCBFrame, true );
 }
 
+void BasicEffect::SetShadowTransform( FXMMATRIX M )
+{
+    XMStoreFloat4x4( &mCBFrame.first.ShadowTransform, M );
+}
+
 void BasicEffect::SetEyePos( const XMFLOAT3& pos )
 {
     mCBFrame.first.EyePos = pos;
@@ -84,6 +89,11 @@ void BasicEffect::SetFogColor( const XMFLOAT3& color )
     SetDirty( mCBFrame, true );
 }
 
+void BasicEffect::SetShadowMap( ID3D11ShaderResourceView* srv )
+{
+    mShadowMap = srv;
+}
+
 void BasicEffect::SetShaderResourceView( ID3D11ShaderResourceView* srv )
 {
     mTextureView = srv;
@@ -104,4 +114,5 @@ void BasicEffect::UpdateConstantBuffers( ID3D11DeviceContext* context )
     }
 
     context->PSSetShaderResources( 0, 1, &mTextureView );
+    context->PSSetShaderResources( 1, 1, &mShadowMap );
 }

@@ -18,7 +18,7 @@ class TextureManager {
     public:
         TextureManager( ID3D11Device* device );
 
-        Texture* getTexture( std::wstring file );
+        Texture* GetTexture( const std::wstring& file );
 
     private:
         ID3D11Device* mD3DDevice;

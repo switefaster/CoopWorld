@@ -9,7 +9,7 @@ struct DirectionalLight
     XMFLOAT4 Diffuse;
     XMFLOAT4 Specular;
     XMFLOAT3 Direction;
-	float pad;
+    float pad;
 };
 
 struct PointLight
@@ -22,7 +22,7 @@ struct PointLight
     float Range;
 
     XMFLOAT3 Att;
-	float pad;
+    float pad;
 };
 
 struct SpotLight
@@ -38,7 +38,7 @@ struct SpotLight
     float Spot;
 
     XMFLOAT3 Att;
-	float pad;
+    float pad;
 };
 
 /*
@@ -65,12 +65,13 @@ class BasicEffect : public Effect {
         struct CBFrame
         {
             DirectionalLight DirectionalLights[3];
+            XMFLOAT4X4 ShadowTransform;
             XMFLOAT3 EyePos;
             float FogRange;
             float FogStart;
             XMFLOAT3 FogColor;
             XMFLOAT3 LightCount;
-			float pad;
+            float pad;
         };
         struct CBObject
         {
@@ -90,11 +91,13 @@ class BasicEffect : public Effect {
         void SetMaterial( const Material& mat );
 
         void SetLights( DirectionalLight lights[3], UINT count );
+        void SetShadowTransform( FXMMATRIX M );
         void SetEyePos( const XMFLOAT3& pos );
         void SetFogRange( float range );
         void SetFogStart( float start );
         void SetFogColor( const XMFLOAT3& color );
 
+        void SetShadowMap( ID3D11ShaderResourceView* srv );
         void SetShaderResourceView( ID3D11ShaderResourceView* srv );
 
     protected:
@@ -103,6 +106,7 @@ class BasicEffect : public Effect {
     private:
         CBWrapper<CBFrame> mCBFrame;
         CBWrapper<CBObject> mCBObject;
+        ID3D11ShaderResourceView* mShadowMap;
         ID3D11ShaderResourceView* mTextureView;
 };
 
