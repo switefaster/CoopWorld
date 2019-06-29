@@ -7,11 +7,12 @@ class ShadowEffect : public Effect {
         ShadowEffect( ID3D11Device* device );
         ~ShadowEffect() = default;
 
-        void UpdateConstantBuffers( ID3D11DeviceContext* context ) override;
-
         void SetLightWVP( FXMMATRIX M );
         void SetTexTransform( FXMMATRIX M );
         void SetTexture( ID3D11ShaderResourceView* srv );
+
+	protected:
+		void UpdateConstantBuffers(ID3D11DeviceContext* context) override;
 
     public:
         struct CBFrame

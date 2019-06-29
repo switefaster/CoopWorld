@@ -40,6 +40,18 @@
     <Filter Include="头文件\Component\Effect">
       <UniqueIdentifier>{87989d44-21d1-40e3-bb8a-a4ada69f9bfa}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\Component\Gui">
+      <UniqueIdentifier>{e16010a2-e18d-4a0c-b8ed-9a7c632c3e6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Component\Gui">
+      <UniqueIdentifier>{a594379b-1cd0-43ac-ad83-8de429050d34}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Component\Render">
+      <UniqueIdentifier>{2130dfc3-46fd-4f6d-862e-5af903354860}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Component\Render">
+      <UniqueIdentifier>{198e4b97-703e-4184-bffb-a90f7875a3fb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AppEntry.cpp">
@@ -53,9 +65,6 @@
     </ClCompile>
     <ClCompile Include="DXException.cpp">
       <Filter>源文件\Util</Filter>
-    </ClCompile>
-    <ClCompile Include="Renderer.cpp">
-      <Filter>源文件\Component</Filter>
     </ClCompile>
     <ClCompile Include="RenderItem.cpp">
       <Filter>源文件\Component</Filter>
@@ -93,6 +102,24 @@
     <ClCompile Include="EffectManager.cpp">
       <Filter>源文件\Component</Filter>
     </ClCompile>
+    <ClCompile Include="Gui.cpp">
+      <Filter>源文件\Component\Gui</Filter>
+    </ClCompile>
+    <ClCompile Include="StateManager.cpp">
+      <Filter>源文件\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer.cpp">
+      <Filter>源文件\Component\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="ShadowedRenderer.cpp">
+      <Filter>源文件\Component\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="ShadowPass.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ForwardPass.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="D3DApplication.h">
@@ -108,9 +135,6 @@
       <Filter>头文件\Util</Filter>
     </ClInclude>
     <ClInclude Include="RenderItem.h">
-      <Filter>头文件\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer.h">
       <Filter>头文件\Component</Filter>
     </ClInclude>
     <ClInclude Include="Mesh.h">
@@ -148,6 +172,24 @@
     </ClInclude>
     <ClInclude Include="EffectManager.h">
       <Filter>头文件\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Gui.h">
+      <Filter>头文件\Component\Gui</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer.h">
+      <Filter>头文件\Component\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="StateManager.h">
+      <Filter>头文件\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="ShadowedRenderer.h">
+      <Filter>头文件\Component\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="ShadowPass.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ForwardPass.h">
+      <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

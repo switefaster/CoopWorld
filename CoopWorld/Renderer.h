@@ -4,8 +4,12 @@
 #include "D3DUtilities.h"
 #include "EffectManager.h"
 #include "Camera.h"
-#include "ShadowMap.h"
+#include "D3DApplication.h"
+#include "StateManager.h"
+#include "RenderItem.h"
 #include <list>
+
+//TODO: Implement deffered rendering
 
 struct Scene
 {
@@ -22,41 +26,96 @@ struct Scene
     } Bounds;
 };
 
-class StateManager {
-    public:
-        StateManager( ID3D11Device* device );
-        StateManager( const StateManager& rhs ) = delete;
-        StateManager& operator=( const StateManager& rhs ) = delete;
+class Renderer;
 
-    public:
-        ComPtr<ID3D11SamplerState> LinearSampler;
-        ComPtr<ID3D11SamplerState> ComparisonSampler;
-        ComPtr<ID3D11RasterizerState> SlopeScaledBiasRasterizer;
+class RenderPass
+{
+public:
+	RenderPass() = default;
+	~RenderPass() = default;
+	RenderPass& operator=(const RenderPass& rhs) = delete;
+	RenderPass(const RenderPass& rhs) = delete;
+
+	virtual std::string GetGBufferName() = 0;
+	virtual void DoRender(ID3D11DeviceContext* context, const std::vector<RenderItem*>& renderItems, Renderer* renderer) = 0;
+	virtual bool ShareBuffer() = 0;
 };
 
 class Renderer {
     public:
-        Renderer( ID3D11Device* device, ID3D11DeviceContext* context, EffectManager* fxMan, StateManager* stateMan );
+        Renderer( ID3D11Device* device, ID3D11DeviceContext* context, D3DApplication* app );
         Renderer( const Renderer& rhs ) = delete;
         Renderer& operator=( const Renderer& rhs ) = delete;
         ~Renderer() = default;
 
-        void Prepare( const Scene& scene, const Camera& camera );
+		void StartDrawProcess();
+		void RenderThis(RenderItem* item);
 
-        void Draw( RenderItem* itemToDraw );
+		ID3D11RenderTargetView* GetRTV(std::string id) const;
+		ID3D11RenderTargetView* GetRTV(UINT id) const;
+		ID3D11ShaderResourceView* GetSRV(std::string id) const;
+		ID3D11ShaderResourceView* GetSRV(UINT id) const;
+		RenderPass* GetPass(std::string id) const;
+		RenderPass* GetPass(UINT id) const;
 
-        void Post( const Camera& camera );
+		D3DApplication* GetApp() const;
 
-    private:
-        void BuildShadowTransform( const Scene& scene );
+		StateManager* GetStateMan()
+		{
+			return mStateManager.get();
+		}
 
-    private:
+		EffectManager* GetFXMan()
+		{
+			return mEffectManager.get();
+		}
+
+		TextureManager* GetTexMan()
+		{
+			return mTextureManager.get();
+		}
+
+		FontManager* GetFontMan()
+		{
+			return mFontManager.get();
+		}
+
+		Scene* GetScene()
+		{
+			return mScene.get();
+		}
+
+		Camera* GetCamera()
+		{
+			return mCamera.get();
+		}
+
+		ID3D11DepthStencilView* GetDSV()
+		{
+			return mDSV.Get();
+		}
+
+	public:
+		virtual std::vector<std::unique_ptr<RenderPass>> GetPasses() = 0;
+    protected:
         ID3D11DeviceContext* mD3DDeviceContext;
-        EffectManager* mFXMan;
-        StateManager* mStateMan;
-        std::unique_ptr<ShadowMap> mShadowMap;
-        std::list<RenderItem*> mRenderItemList;
+		ID3D11Device* mD3DDevice;
+		D3DApplication* mApp;
 
-        XMFLOAT4X4 mLightVP;
-        XMFLOAT4X4 mShadowTransform;
+		std::vector<std::unique_ptr<RenderPass>> mRenderPasses;
+		std::unordered_map<std::string, UINT> mCorrespondingIndices;
+		std::vector<ComPtr<ID3D11Texture2D>> mBuffers;
+		std::vector<ComPtr<ID3D11ShaderResourceView>> mSRVs;
+		std::vector<ComPtr<ID3D11RenderTargetView>> mRTVs;
+		ComPtr<ID3D11Texture2D> mDepthStencilBuffer;
+		ComPtr<ID3D11DepthStencilView> mDSV;
+		std::unique_ptr<Scene> mScene;
+		std::unique_ptr<Camera> mCamera;
+
+		std::unique_ptr<EffectManager> mEffectManager;
+		std::unique_ptr<StateManager> mStateManager;
+		std::unique_ptr<TextureManager> mTextureManager;
+		std::unique_ptr<FontManager> mFontManager;
+
+		std::vector<RenderItem*> mItemsToDraw;
 };

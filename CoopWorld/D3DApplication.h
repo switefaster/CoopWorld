@@ -7,13 +7,21 @@
 
 #include <Windows.h>
 #include <wrl.h>
+#include <thread>
 
 #include "Timer.h"
 #include "D3DUtilities.h"
+#include "EffectManager.h"
+#include "FontManager.h"
+#include "StateManager.h"
+#include "RenderItem.h"
 
 #pragma comment(lib, "d3dcompiler.lib")
 #pragma comment(lib, "D3D11.lib")
 #pragma comment(lib, "dxgi.lib")
+
+//C++ SB
+class Renderer;
 
 class D3DApplication {
     protected:
@@ -32,6 +40,11 @@ class D3DApplication {
         bool Get4xMsaaState();
         void Set4xMsaaState( bool newState );
 
+        D3D11_VIEWPORT GetViewport() const;
+        ID3D11RenderTargetView* GetRtv() const;
+        ID3D11DepthStencilView* GetDsv() const;
+        XMFLOAT4 GetClearColor() const;
+
         int Run();
 
         virtual bool Initialize();
@@ -49,9 +62,15 @@ class D3DApplication {
     protected:
         bool InitWindow();
         bool InitD3DContents();
-		void CreateSwapChain();
+        void CreateSwapChain();
 
-        void CalculateFPS();
+        void FixFPS( Timer& timer);
+		void FixTPS( Timer& timer);
+
+		void CountFPS(Timer& timer);
+		void CountTPS(Timer& timer);
+
+        void Clear();
 
     protected:
         static D3DApplication* mInstance;
@@ -68,15 +87,22 @@ class D3DApplication {
         bool m4xMsaa = false;
         UINT m4xMsaaQuality = 0;
 
-        Timer mTimer;
-
         ComPtr<IDXGISwapChain> mSwapChain;
         ComPtr<ID3D11Device> mD3DDevice;
         ComPtr<ID3D11DeviceContext> mD3DContext;
         ComPtr<ID3D11Texture2D> mDepthStencilBuffer;
         ComPtr<ID3D11DepthStencilView> mDepthStencilView;
         ComPtr<ID3D11RenderTargetView> mRenderTargetView;
+		std::unique_ptr<Renderer> mRenderer;
         D3D11_VIEWPORT mViewport;
+
+		std::thread mLogicThread;
+
+		Timer mRenderTimer;
+		Timer mLogicTimer;
+
+		float mFPS;
+		float mTPS;
 
         D3D_DRIVER_TYPE mD3DDriverType = D3D_DRIVER_TYPE_HARDWARE;
 

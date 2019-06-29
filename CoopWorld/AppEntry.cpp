@@ -1,5 +1,7 @@
 #include "DemoApp.h"
 
+#include <exception>
+
 int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR cmdLine, int showCmd )
 {
     #if defined(DEBUG) || defined(_DEBUG)
@@ -17,9 +19,14 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR cmdLine, 
         //app.Set4xMsaaState( true );
         return app.Run();
     }
-    catch ( DXException err )
+    catch ( DXException& err )
     {
         MessageBox( nullptr, err.ToString().c_str(), L"Oops", MB_OK );
 		return -1;
     }
+	catch (std::exception& syserr)
+	{
+		MessageBoxA(nullptr, syserr.what(), "Oops", MB_OK);
+		return -1;
+	}
 }

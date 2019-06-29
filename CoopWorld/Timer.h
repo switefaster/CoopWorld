@@ -6,6 +6,7 @@ class Timer {
 
         float Elapsed() const;
         float Delta() const;
+		float CurrentTime() const;
 
         void Reset();
         void Resume();

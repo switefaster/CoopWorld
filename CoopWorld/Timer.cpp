@@ -32,6 +32,18 @@ float Timer::Delta() const
     return ( float )mDeltaTime;
 }
 
+float Timer::CurrentTime() const
+{
+	__int64 currTime;
+	QueryPerformanceCounter((LARGE_INTEGER*)& currTime);
+	if (mPaused)
+	{
+		return (float)(((mStopTime - mPausedTime) - mBaseTime) * mSecondPerCount);
+	}
+
+	return (float)(((currTime - mPaused) - mBaseTime) * mSecondPerCount);
+}
+
 void Timer::Reset()
 {
     __int64 currTime;

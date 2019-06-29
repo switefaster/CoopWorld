@@ -1,5 +1,8 @@
 #include "D3DApplication.h"
 
+//C++ SB
+#include "Renderer.h"
+
 using namespace std;
 
 LRESULT CALLBACK MainWndProc( HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam )
@@ -14,6 +17,8 @@ D3DApplication::D3DApplication( HINSTANCE hInstance ) :
 {
     assert( mInstance == nullptr );
     mInstance = this;
+
+	mLogicTimer.Reset();
 }
 
 D3DApplication::~D3DApplication()
@@ -54,15 +59,51 @@ void D3DApplication::Set4xMsaaState( bool newState )
     if ( newState != m4xMsaa )
     {
         m4xMsaa = newState;
-		CreateSwapChain();
+        CreateSwapChain();
         OnResize();
     }
+}
+
+D3D11_VIEWPORT D3DApplication::GetViewport() const
+{
+    return mViewport;
+}
+
+ID3D11RenderTargetView* D3DApplication::GetRtv() const
+{
+    return mRenderTargetView.Get();
+}
+
+ID3D11DepthStencilView* D3DApplication::GetDsv() const
+{
+    return mDepthStencilView.Get();
+}
+
+XMFLOAT4 D3DApplication::GetClearColor() const
+{
+    return { 0.0f, 0.0f, 0.0f, 0.0f };
 }
 
 int D3DApplication::Run()
 {
     MSG msg = { 0 };
-    mTimer.Reset();
+    mRenderTimer.Reset();
+	mLogicThread = std::thread([&]()
+	{
+		while (msg.message != WM_QUIT)
+		{
+			if (!mAppPaused)
+			{
+				Update(mLogicTimer);
+				FixTPS(mLogicTimer);
+				CountTPS(mLogicTimer);
+			}
+			else
+			{
+				std::this_thread::sleep_for(100ms);
+			}
+		}
+	});
 
     while ( msg.message != WM_QUIT )
     {
@@ -71,22 +112,21 @@ int D3DApplication::Run()
             TranslateMessage( &msg );
             DispatchMessage( &msg );
         }
-        else
-        {
-            mTimer.Tick();
-
-            if ( !mAppPaused )
-            {
-                CalculateFPS();
-                Update( mTimer );
-                Draw( mTimer );
-            }
-            else
-            {
-                Sleep( 100 );
-            }
-        }
+		else 
+		{
+			if (!mAppPaused) 
+			{
+				Draw(mRenderTimer);
+				FixFPS(mRenderTimer);
+				CountFPS(mRenderTimer);
+			}
+			else
+			{
+				std::this_thread::sleep_for(100ms);
+			}
+		}
     }
+	mLogicThread.join();
 
     return ( int )msg.wParam;
 }
@@ -115,12 +155,14 @@ LRESULT D3DApplication::MsgProc( HWND hwnd, UINT msg, WPARAM wParam, LPARAM lPar
             if ( LOWORD( wParam ) == WA_INACTIVE )
             {
                 mAppPaused = true;
-                mTimer.Pause();
+                mRenderTimer.Pause();
+                mLogicTimer.Pause();
             }
             else
             {
                 mAppPaused = false;
-                mTimer.Resume();
+                mRenderTimer.Resume();
+                mLogicTimer.Resume();
             }
 
             return 0;
@@ -173,13 +215,15 @@ LRESULT D3DApplication::MsgProc( HWND hwnd, UINT msg, WPARAM wParam, LPARAM lPar
         case WM_ENTERSIZEMOVE:
             mAppPaused = true;
             mResizing = true;
-            mTimer.Pause();
+            mRenderTimer.Pause();
+            mLogicTimer.Pause();
             return 0;
 
         case WM_EXITSIZEMOVE:
             mAppPaused = false;
             mResizing = false;
-            mTimer.Resume();
+            mRenderTimer.Resume();
+            mLogicTimer.Resume();
             OnResize();
             return 0;
 
@@ -369,21 +413,62 @@ void D3DApplication::CreateSwapChain()
     ThrowIfFailed( dxgiFactory->CreateSwapChain( mD3DDevice.Get(), &scDesc, &mSwapChain ) );
 }
 
-void D3DApplication::CalculateFPS()
+void D3DApplication::FixFPS( Timer& timer )
 {
-    static int frameCount = 0;
-    static float timeElapsed = 0;
-    frameCount++;
+	timer.Tick();
+	float dt = timer.Delta();
+	float loopStart = timer.Elapsed() - dt;
+	float loopEnd = loopStart + 1.0f / 30;
+	using namespace std::chrono_literals;
+	while (timer.CurrentTime() <= loopEnd)
+	{
+		std::this_thread::sleep_for(1ms);
+	}
+}
 
-    if ( ( mTimer.Elapsed() - timeElapsed ) >= 1.0f )
-    {
-        float fps = ( float )frameCount;
-        float mspf = 1000.0f / fps;
-        std::wostringstream outs;
-        outs.precision( 6 );
-        outs << mCaption << L"    " << L"FPS: " << fps << L"    " << "Mspf: " << mspf << L" (ms)";
-        SetWindowText( mHwnd, outs.str().c_str() );
-        frameCount = 0;
-        timeElapsed += 1.0f;
-    }
+void D3DApplication::FixTPS( Timer& timer )
+{
+	timer.Tick();
+	float dt = timer.Delta();
+	float loopStart = timer.Elapsed() - dt;
+	float loopEnd = loopStart + 1.0f / 10;
+	using namespace std::chrono_literals;
+	while (timer.CurrentTime() <= loopEnd && !mAppPaused)
+	{
+		std::this_thread::sleep_for(1ms);
+	}
+}
+
+static int tcount = 0;
+static int fcount = 0;
+static float flast = 0;
+static float tlast = 0;
+void D3DApplication::CountFPS(Timer& timer)
+{
+	fcount++;
+	float el = timer.Elapsed();
+	if (el - flast >= 1.0f)
+	{
+		mFPS = fcount;
+		fcount = 0;
+		flast = el;
+	}
+}
+
+void D3DApplication::CountTPS(Timer& timer)
+{
+	tcount++;
+	float el = timer.Elapsed();
+	if (el - tlast >= 1.0f)
+	{
+		mTPS = tcount;
+		tcount = 0;
+		tlast = el;
+	}
+}
+
+void D3DApplication::Clear()
+{
+    mD3DContext->ClearRenderTargetView( mRenderTargetView.Get(), reinterpret_cast<const float*>( &GetClearColor() ) );
+    mD3DContext->ClearDepthStencilView( mDepthStencilView.Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0 );
 }

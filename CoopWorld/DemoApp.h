@@ -2,9 +2,7 @@
 
 #include "D3DApplication.h"
 #include "Mesh.h"
-#include "EffectManager.h"
-#include "Renderer.h"
-#include "FontManager.h"
+#include "ShadowedRenderer.h"
 
 class DemoApp : public D3DApplication {
     public:
@@ -19,17 +17,11 @@ class DemoApp : public D3DApplication {
         void Draw( const Timer& dt ) override;
 
     private:
-        std::unique_ptr<EffectManager> mEffectManager;
         std::unique_ptr<Mesh> mSphereMesh;
-		std::unique_ptr<RenderItem> mRenderItem;
 		std::unique_ptr<Mesh> mPlateMesh;
-		std::unique_ptr<RenderItem> mPlateItem;
-		std::unique_ptr<Renderer> mRenderer;
-		std::unique_ptr<TextureManager> mTextureManager;
-		std::unique_ptr<FontManager> mFontManager;
-		std::unique_ptr<StateManager> mStateManager;
+		std::unique_ptr<RenderItem> mSphere;
+		std::unique_ptr<RenderItem> mGround;
 
-		Scene mScene;
-		Camera mCamera;
+		Scene* mScene;
+		Camera* mCamera;
 };
-
