@@ -19,8 +19,7 @@ bool DemoApp::Initialize()
         return false;
     }
 
-	mRenderer = std::make_unique<ShadowedRenderer>(mD3DDevice.Get(), mD3DContext.Get(), this);
-
+	mRenderer = std::make_unique<Renderer>(mD3DDevice.Get(), mD3DContext.Get(), this);
     mSphereMesh = std::move( MeshLoader::LoadMesh( mD3DDevice.Get(), "resources/sphere.obj", mRenderer->GetTexMan() )[0] );
     mPlateMesh = std::move( MeshLoader::LoadMesh( mD3DDevice.Get(), "resources/plate.obj", mRenderer->GetTexMan() )[0] );
 	mSphere = std::make_unique<RenderItem>(mSphereMesh.get());
@@ -89,9 +88,6 @@ void DemoApp::Update( const Timer& dt )
     }
 
     mCamera->UpdateViewMatrix();
-
-	mRenderer->RenderThis(mSphere.get());
-	mRenderer->RenderThis(mGround.get());
 }
 
 void DemoApp::Draw( const Timer& dt )
@@ -99,6 +95,8 @@ void DemoApp::Draw( const Timer& dt )
     assert( mD3DContext != nullptr );
     assert( mSwapChain != nullptr );
 	Clear();
+	mRenderer->RenderThis(mSphere.get());
+	mRenderer->RenderThis(mGround.get());
 	mRenderer->StartDrawProcess();
 	mRenderer->GetFontMan()->DrawFont(mD3DContext.Get(), L"Consolas", std::to_wstring(mFPS), 36.0f, 0.0f, 0.0f, 0XFFFFFFFF);
 	mRenderer->GetFontMan()->DrawFont(mD3DContext.Get(), L"Consolas", std::to_wstring(mTPS), 36.0f, 300.0f, 0.0f, 0XFFFFFFFF);

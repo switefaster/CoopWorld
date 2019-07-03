@@ -12,6 +12,7 @@
 *.obj
 
 !CoopWorld/resources
+!CoopWorld/resources/*.obj
 
 # Precompiled Headers
 *.gch

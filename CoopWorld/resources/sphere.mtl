@@ -7,7 +7,7 @@ Ka 0.48 0.48 0.48
 Kd 0.8 0.8 0.8
 Ks 0.8 0.8 0.8
 
-map_Kd reimu.DDS
+map_Kd sphere_uv.DDS
 
 d 1
 illum 2

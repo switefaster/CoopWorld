@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef _TIMER_H_
+#define _TIMER_H_
+
 class Timer {
     public:
         Timer();
@@ -26,3 +29,4 @@ class Timer {
         bool mPaused;
 };
 
+#endif

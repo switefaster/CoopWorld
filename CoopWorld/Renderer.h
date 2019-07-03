@@ -1,12 +1,16 @@
 #pragma once
 
+#ifndef _RENDERER_H_
+#define _RENDERER_H_
+
 #include "RenderItem.h"
 #include "D3DUtilities.h"
-#include "EffectManager.h"
-#include "Camera.h"
 #include "D3DApplication.h"
+#include "EffectManager.h"
+#include "FontManager.h"
+#include "Texture.h"
+#include "Camera.h"
 #include "StateManager.h"
-#include "RenderItem.h"
 #include <list>
 
 //TODO: Implement deffered rendering
@@ -40,6 +44,9 @@ public:
 	virtual void DoRender(ID3D11DeviceContext* context, const std::vector<RenderItem*>& renderItems, Renderer* renderer) = 0;
 	virtual bool ShareBuffer() = 0;
 };
+
+class ShadowPass;
+class ForwardPass;
 
 class Renderer {
     public:
@@ -95,8 +102,7 @@ class Renderer {
 			return mDSV.Get();
 		}
 
-	public:
-		virtual std::vector<std::unique_ptr<RenderPass>> GetPasses() = 0;
+		std::vector<std::unique_ptr<RenderPass>> GetPasses();
     protected:
         ID3D11DeviceContext* mD3DDeviceContext;
 		ID3D11Device* mD3DDevice;
@@ -119,3 +125,5 @@ class Renderer {
 
 		std::vector<RenderItem*> mItemsToDraw;
 };
+
+#endif

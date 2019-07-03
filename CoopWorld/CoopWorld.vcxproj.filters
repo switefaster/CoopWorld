@@ -9,10 +9,6 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
-    <Filter Include="资源文件">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
     <Filter Include="头文件\App">
       <UniqueIdentifier>{51b8ad59-25a3-4b38-b313-105221f3f659}</UniqueIdentifier>
     </Filter>
@@ -51,6 +47,9 @@
     </Filter>
     <Filter Include="源文件\Component\Render">
       <UniqueIdentifier>{198e4b97-703e-4184-bffb-a90f7875a3fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="资源">
+      <UniqueIdentifier>{8ce91bf0-29e7-478f-bd47-07d0c419ab2f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -109,9 +108,6 @@
       <Filter>源文件\Component</Filter>
     </ClCompile>
     <ClCompile Include="Renderer.cpp">
-      <Filter>源文件\Component\Render</Filter>
-    </ClCompile>
-    <ClCompile Include="ShadowedRenderer.cpp">
       <Filter>源文件\Component\Render</Filter>
     </ClCompile>
     <ClCompile Include="ShadowPass.cpp">
@@ -182,9 +178,6 @@
     <ClInclude Include="StateManager.h">
       <Filter>头文件\Component</Filter>
     </ClInclude>
-    <ClInclude Include="ShadowedRenderer.h">
-      <Filter>头文件\Component\Render</Filter>
-    </ClInclude>
     <ClInclude Include="ShadowPass.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -203,5 +196,26 @@
     <None Include="shadow.hlsl">
       <Filter>着色器</Filter>
     </None>
+    <None Include="resources\plate.mtl">
+      <Filter>资源</Filter>
+    </None>
+    <None Include="resources\sphere.mtl">
+      <Filter>资源</Filter>
+    </None>
+    <None Include="resources\plate.obj">
+      <Filter>资源</Filter>
+    </None>
+    <None Include="resources\sphere.obj">
+      <Filter>资源</Filter>
+    </None>
+    <None Include="ClassDiagram.cd" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="resources\reimu.DDS">
+      <Filter>资源</Filter>
+    </Image>
+    <Image Include="resources\sphere_uv.DDS">
+      <Filter>资源</Filter>
+    </Image>
   </ItemGroup>
 </Project>

@@ -1,8 +1,11 @@
 #pragma once
 
+#ifndef _DEMO_APP_H_
+#define _DEMO_APP_H_
+
 #include "D3DApplication.h"
+#include "Renderer.h"
 #include "Mesh.h"
-#include "ShadowedRenderer.h"
 
 class DemoApp : public D3DApplication {
     public:
@@ -22,6 +25,10 @@ class DemoApp : public D3DApplication {
 		std::unique_ptr<RenderItem> mSphere;
 		std::unique_ptr<RenderItem> mGround;
 
+		std::unique_ptr<Renderer> mRenderer;
+
 		Scene* mScene;
 		Camera* mCamera;
 };
+
+#endif

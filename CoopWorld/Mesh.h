@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef _MESH_H_
+#define _MESH_H_
+
 #include "D3DUtilities.h"
 #include "Texture.h"
 
@@ -98,3 +101,5 @@ class Mesh {
 
 		Material mMaterial;
 };
+
+#endif

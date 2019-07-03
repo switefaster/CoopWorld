@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef _FONT_MANAGER_H_
+#define _FONT_MANAGER_H_
+
 #include "D3DUtilities.h"
 #include <FW1FontWrapper.h>
 #include <unordered_map>
@@ -17,3 +20,4 @@ class FontManager {
         std::unordered_map<std::wstring, ComPtr<IFW1FontWrapper>> mWrappers;
 };
 
+#endif

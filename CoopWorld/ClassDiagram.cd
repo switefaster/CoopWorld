@@ -1,0 +1,221 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="ForwardPass" Collapsed="true">
+    <Position X="0.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAgAAAAAEAAAAAgAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ForwardPass.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ShadowPass" Collapsed="true">
+    <Position X="2.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAgAAAAAAAAAQAAAgACAAIEAgAAAgAAAAQAAAIAAAAA=</HashCode>
+      <FileName>ShadowPass.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="D3DApplication" Collapsed="true">
+    <Position X="0.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>OASCAAhFBAIgAwMIQgARAAIQDBIyACIILIggACRCRAI=</HashCode>
+      <FileName>D3DApplication.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DemoApp" Collapsed="true">
+    <Position X="0.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQIAAAAAAAIAwAAQAAAABAAAAAEAAAAAAQgACEAABA=</HashCode>
+      <FileName>DemoApp.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="D3DUtilities" Collapsed="true">
+    <Position X="9.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAgAAACAAAAAABAAAAAAAAAAAAAAQAAAAQAAAAAA=</HashCode>
+      <FileName>D3DUtilities.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DXException" Collapsed="true">
+    <Position X="11.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAAAgAEAAAAAAAAAEAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DXException.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MeshLoader" Collapsed="true">
+    <Position X="13.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAAAAAAAAAACAAAAAAAAAAgAAAAAAAAAAAAA=</HashCode>
+      <FileName>MeshLoader.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Timer" Collapsed="true">
+    <Position X="9.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QgAgAAgAAAAABAAYAAAAAgAAAAAAAAAAAAAAgAgEwQA=</HashCode>
+      <FileName>Timer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Camera" Collapsed="true">
+    <Position X="8" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQQCicAABiAAAJEARAAAQQAEwAIBogBggAFEAMAgAgI=</HashCode>
+      <FileName>Camera.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EffectManager" Collapsed="true">
+    <Position X="13.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAgAQAAAAAAACAAgAAAAAAAAAAgAA=</HashCode>
+      <FileName>EffectManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FontManager" Collapsed="true">
+    <Position X="8" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAAAAAAAAAAAAQAQAAAAAQAAgCAAAAA=</HashCode>
+      <FileName>FontManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Mesh" Collapsed="true">
+    <Position X="11.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEACEBAAAAJAQAABAAAAACAAAAAMAQIAACAAAAg=</HashCode>
+      <FileName>Mesh.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RenderItem" Collapsed="true">
+    <Position X="8" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIABABCCBEAIAIAAAAAAIEAAAChgAICAAAgAAggA=</HashCode>
+      <FileName>RenderItem.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ShadowMap" Collapsed="true">
+    <Position X="9.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABBAAAAABAEBBAAAAAAAAQAAkAAAAAAI=</HashCode>
+      <FileName>ShadowMap.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="StateManager" Collapsed="true">
+    <Position X="11.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAABAAAAAAgAAAAAAAAEEAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>StateManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Texture" Collapsed="true">
+    <Position X="13.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAAAAAAQAAAAAAAAAAIIAAAAAAA=</HashCode>
+      <FileName>Texture.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TextureManager" Collapsed="true">
+    <Position X="8" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAAAAIAAABAAAAAAAAAAAAAAAAAAAACAAAAA=</HashCode>
+      <FileName>Texture.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BasicEffect" Collapsed="true">
+    <Position X="3" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQIgCAAAAAAAAAIAWAAAIBABAAAAAEBAAAEgAEABA=</HashCode>
+      <FileName>BasicEffect.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ColorEffect" Collapsed="true">
+    <Position X="5.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAAAAAAAAAAAAAAIAAAAAAAAAACAAEgAAAAA=</HashCode>
+      <FileName>ColorEffect.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Effect" Collapsed="true">
+    <Position X="3" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAgAAAABgEAAAAAAAAAAKgAAIAAAAAAAAgEAAAAAA=</HashCode>
+      <FileName>Effect.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ShadowEffect" Collapsed="true">
+    <Position X="0.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQACAAAAAAAAAAAoAAAAAIBACAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>ShadowEffect.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gui" Collapsed="true">
+    <Position X="9.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Gui.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RenderPass" Collapsed="true">
+    <Position X="1.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAAAAAgAAAAAEAAAAAgAAAAAAgEAAAAAA=</HashCode>
+      <FileName>Renderer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Renderer" Collapsed="true">
+    <Position X="5.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAgogAAIAAAAANYIACAgIAABACgACAAFGBC4ACAcAAA=</HashCode>
+      <FileName>Renderer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ShadowedRenderer" Collapsed="true">
+    <Position X="5.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAgAAAAA=</HashCode>
+      <FileName>ShadowedRenderer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="Material" Collapsed="true">
+    <Position X="11.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAAAAAAAgAAAAABAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>Mesh.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="DirectionalLight" Collapsed="true">
+    <Position X="8" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAACAAAAAAAAAiAAAAAAAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>BasicEffect.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="PointLight" Collapsed="true">
+    <Position X="13.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAACAAAACAAgAgAAAAAAAACAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>BasicEffect.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="SpotLight" Collapsed="true">
+    <Position X="9.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAACAAAACAAgAiAAAAAAAACAAAAAAAgAAEAAAAA=</HashCode>
+      <FileName>BasicEffect.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="IL_VECTOR_HASH" Collapsed="true">
+    <Position X="9.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Effect.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="Scene" Collapsed="true">
+    <Position X="8" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAgAAAAABBAAAgAAAAAAAAAAAAAAAAAAAhA=</HashCode>
+      <FileName>Renderer.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Font Name="Microsoft YaHei UI" Size="9" />
+</ClassDiagram>

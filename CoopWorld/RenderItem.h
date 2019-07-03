@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef _RENDER_ITEM_H_
+#define _RENDER_ITEM_H_
+
 #include "D3DUtilities.h"
 #include "Mesh.h"
 
@@ -37,3 +40,4 @@ class RenderItem {
         bool mDirty = false;
 };
 
+#endif

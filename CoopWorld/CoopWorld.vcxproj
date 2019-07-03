@@ -149,7 +149,6 @@ copy resources\ "$(outdir)resources"</Command>
     <ClCompile Include="Gui.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="RenderItem.cpp" />
-    <ClCompile Include="ShadowedRenderer.cpp" />
     <ClCompile Include="ShadowEffect.cpp" />
     <ClCompile Include="ShadowMap.cpp" />
     <ClCompile Include="ShadowPass.cpp" />
@@ -174,7 +173,6 @@ copy resources\ "$(outdir)resources"</Command>
     <ClInclude Include="MeshLoader.hpp" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="RenderItem.h" />
-    <ClInclude Include="ShadowedRenderer.h" />
     <ClInclude Include="ShadowEffect.h" />
     <ClInclude Include="ShadowMap.h" />
     <ClInclude Include="ShadowPass.h" />
@@ -183,6 +181,7 @@ copy resources\ "$(outdir)resources"</Command>
     <ClInclude Include="Timer.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="ClassDiagram.cd" />
     <None Include="color.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Geometry</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">4.0</ShaderModel>
@@ -215,6 +214,8 @@ copy resources\ "$(outdir)resources"</Command>
     </None>
   </ItemGroup>
   <ItemGroup>
+    <None Include="resources\plate.mtl" />
+    <None Include="resources\sphere.mtl" />
     <None Include="shadow.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Geometry</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">4.0</ShaderModel>
@@ -226,6 +227,18 @@ copy resources\ "$(outdir)resources"</Command>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">4.0</ShaderModel>
       <FileType>Document</FileType>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resources\plate.obj">
+      <FileType>Document</FileType>
+    </None>
+    <None Include="resources\sphere.obj">
+      <FileType>Document</FileType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="resources\reimu.DDS" />
+    <Image Include="resources\sphere_uv.DDS" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

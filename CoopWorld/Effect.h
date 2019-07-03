@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef _EFFECT_H_
+#define _EFFECT_H_
+
 #include "D3DUtilities.h"
 #include <vector>
 #include <unordered_map>
@@ -45,3 +48,5 @@ class Effect {
         ID3D11InputLayout* mInputLayout;
         std::unordered_map<int, ComPtr<ID3D11Buffer>> mConstantBuffers;
 };
+
+#endif

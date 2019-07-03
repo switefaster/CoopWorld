@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef _D3D_UTILITIES_H_
+#define _D3D_UTILITIES_H_
+
 #include <dxgi.h>
 #include <d3d11.h>
 #include <DirectXMath.h>
@@ -48,4 +51,6 @@ class D3DUtilities {
         HRESULT hr__ = (statement); \
         if(FAILED(hr__)) { throw DXException(hr__); } \
     }
+#endif
+
 #endif

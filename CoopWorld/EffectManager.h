@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef _EFFECT_MANAGER_H_
+#define _EFFECT_MANAGER_H_
+
 #include "D3DUtilities.h"
 #include "ColorEffect.h"
 #include "BasicEffect.h"
@@ -15,3 +18,4 @@ class EffectManager {
 		std::unique_ptr<ShadowEffect> ShadowFX;
 };
 
+#endif

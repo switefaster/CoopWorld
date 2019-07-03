@@ -1,5 +1,10 @@
 #pragma once
+
+#ifndef _FORWARD_PASS_H_
+#define _FORWARD_PASS_H_
+
 #include "Renderer.h"
+#include "ShadowPass.h"
 
 class ForwardPass :
 	public RenderPass
@@ -10,3 +15,4 @@ public:
 	virtual bool ShareBuffer() override;
 };
 
+#endif

@@ -1,5 +1,7 @@
 #include "Renderer.h"
 
+#include "ForwardPass.cpp"
+
 Renderer::Renderer( ID3D11Device* device, ID3D11DeviceContext* context, D3DApplication* app ) :
     mD3DDeviceContext( context ),
 	mD3DDevice(device),
@@ -132,4 +134,12 @@ RenderPass* Renderer::GetPass(UINT id) const
 D3DApplication* Renderer::GetApp() const
 {
 	return mApp;
+}
+
+std::vector<std::unique_ptr<RenderPass>> Renderer::GetPasses()
+{
+	std::vector<std::unique_ptr<RenderPass>> list;
+	list.emplace_back(std::make_unique<ShadowPass>(mD3DDevice, 2048, 2048));
+	list.emplace_back(std::make_unique<ForwardPass>());
+	return list;
 }

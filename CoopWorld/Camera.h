@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef _CAMERA_H_
+#define _CAMERA_H_
+
 #include "D3DUtilities.h"
 
 class Camera {
@@ -64,3 +67,4 @@ class Camera {
         XMFLOAT4X4 mProj;
 };
 
+#endif

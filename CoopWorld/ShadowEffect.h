@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef _SHADOW_EFFECT_H_
+#define _SHADOW_EFFECT_H_
+
 #include "BasicEffect.h"
 
 class ShadowEffect : public Effect {
@@ -28,3 +31,4 @@ class ShadowEffect : public Effect {
         ID3D11ShaderResourceView* mDiffuseMap;
 };
 
+#endif

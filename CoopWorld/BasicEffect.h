@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef _BASIC_EFFECT_H_
+#define _BASIC_EFFECT_H_
+
 #include "Effect.h"
 #include "Mesh.h"
 
@@ -110,3 +113,4 @@ class BasicEffect : public Effect {
         ID3D11ShaderResourceView* mTextureView;
 };
 
+#endif

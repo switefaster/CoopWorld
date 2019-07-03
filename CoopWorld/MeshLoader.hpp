@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef _MESH_LOADER_H_
+#define _MESH_LOADER_H_
+
 #include "D3DUtilities.h"
 
 #include <assimp/Importer.hpp>
@@ -105,3 +108,4 @@ class MeshLoader {
         }
 };
 
+#endif

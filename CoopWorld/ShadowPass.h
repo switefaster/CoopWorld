@@ -1,4 +1,8 @@
 #pragma once
+
+#ifndef _SHADOW_PASS_H_
+#define _SHADOW_PASS_H_
+
 #include "Renderer.h"
 #include "ShadowMap.h"
 
@@ -27,3 +31,4 @@ private:
 	XMFLOAT4X4 mShadowTransform;
 };
 
+#endif

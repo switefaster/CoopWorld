@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef _SHADOW_MAP_H_
+#define _SHADOW_MAP_H_
+
 #include "D3DUtilities.h"
 
 class ShadowMap {
@@ -23,3 +26,4 @@ class ShadowMap {
         D3D11_VIEWPORT mViewport;
 };
 
+#endif

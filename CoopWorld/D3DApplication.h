@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef _D3D_APPLICATION_H_
+#define _D3D_APPLICATIONN_H_
+
 #if defined(DEBUG) || defined(_DEBUG)
     #define _CRTDBG_MAP_ALLOC
     #include <crtdbg.h>
@@ -11,17 +14,10 @@
 
 #include "Timer.h"
 #include "D3DUtilities.h"
-#include "EffectManager.h"
-#include "FontManager.h"
-#include "StateManager.h"
-#include "RenderItem.h"
 
 #pragma comment(lib, "d3dcompiler.lib")
 #pragma comment(lib, "D3D11.lib")
 #pragma comment(lib, "dxgi.lib")
-
-//C++ SB
-class Renderer;
 
 class D3DApplication {
     protected:
@@ -93,7 +89,6 @@ class D3DApplication {
         ComPtr<ID3D11Texture2D> mDepthStencilBuffer;
         ComPtr<ID3D11DepthStencilView> mDepthStencilView;
         ComPtr<ID3D11RenderTargetView> mRenderTargetView;
-		std::unique_ptr<Renderer> mRenderer;
         D3D11_VIEWPORT mViewport;
 
 		std::thread mLogicThread;
@@ -111,3 +106,4 @@ class D3DApplication {
         int mClientHeight = 600;
 };
 
+#endif

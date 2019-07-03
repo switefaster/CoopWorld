@@ -1,7 +1,5 @@
 #include "ForwardPass.h"
 
-#include "ShadowPass.h"
-
 std::string ForwardPass::GetGBufferName()
 {
 	return "forward";

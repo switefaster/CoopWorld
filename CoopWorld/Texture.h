@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef _TEXTURE_H_
+#define _TEXTURE_H_
+
 #include "D3DUtilities.h"
 #include <unordered_map>
 
@@ -24,3 +27,5 @@ class TextureManager {
         ID3D11Device* mD3DDevice;
         std::unordered_map<std::wstring, std::unique_ptr<Texture>> mTextureMap;
 };
+
+#endif

@@ -1,7 +1,6 @@
 #include "D3DApplication.h"
 
-//C++ SB
-#include "Renderer.h"
+#include "Renderer.cpp"
 
 using namespace std;
 
@@ -142,7 +141,6 @@ bool D3DApplication::Initialize()
     {
         return false;
     }
-
     OnResize();
     return true;
 }

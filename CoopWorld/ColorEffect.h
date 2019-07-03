@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef _COLOR_EFFECT_H_
+#define _COLOR_EFFECT_H_
+
 #include "Effect.h"
 
 class ColorEffect : public Effect {
@@ -26,3 +29,4 @@ class ColorEffect : public Effect {
         CBuffer mWorldMatrix;
 };
 
+#endif
