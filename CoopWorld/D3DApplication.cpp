@@ -276,11 +276,10 @@ void D3DApplication::OnResize()
 {
 	assert(mD3DContext);
 	assert(mD3DDevice);
-	assert(mSwapChain);
 	mRenderTargetView.Reset();
 	mDepthStencilView.Reset();
 	mDepthStencilBuffer.Reset();
-	ThrowIfFailed(mSwapChain->ResizeBuffers(1, mClientWidth, mClientHeight, DXGI_FORMAT_R8G8B8A8_UNORM, 0));
+	CreateSwapChain();
 	ComPtr<ID3D11Texture2D> backBuffer;
 	ThrowIfFailed(mSwapChain->GetBuffer(0, IID_PPV_ARGS(backBuffer.GetAddressOf())));
 	ThrowIfFailed(mD3DDevice->CreateRenderTargetView(backBuffer.Get(), nullptr, mRenderTargetView.GetAddressOf()));
@@ -373,19 +372,26 @@ bool D3DApplication::InitD3DContents()
 #if defined(DEBUG) || defined(_DEBUG)
 	deviceCreationFlags |= D3D11_CREATE_DEVICE_DEBUG;
 #endif
+	deviceCreationFlags |= D3D11_CREATE_DEVICE_BGRA_SUPPORT;
 	D3D_FEATURE_LEVEL featureLevel;
-	ThrowIfFailed(D3D11CreateDevice(nullptr, mD3DDriverType, nullptr, deviceCreationFlags, nullptr, 0, D3D11_SDK_VERSION, &mD3DDevice, &featureLevel, &mD3DContext));
-
-	if (featureLevel != D3D_FEATURE_LEVEL_11_0)
+	ComPtr<ID3D11Device> device;
+	ComPtr<ID3D11DeviceContext> context;
+	D3D_FEATURE_LEVEL levels[1] = { D3D_FEATURE_LEVEL_11_1 };
+	ThrowIfFailed(D3D11CreateDevice(nullptr, mD3DDriverType, nullptr, deviceCreationFlags, levels, 1, D3D11_SDK_VERSION, &device, &featureLevel, &context));
+	if (featureLevel != D3D_FEATURE_LEVEL_11_1)
 	{
 		MessageBox(nullptr, L"Feature Level Unsupported!", L"Oops", NULL);
 		return false;
 	}
 
+	ThrowIfFailed(device->QueryInterface<ID3D11Device1>(&mD3DDevice));
+	ThrowIfFailed(context->QueryInterface<ID3D11DeviceContext1>(&mD3DContext));
+
 	ThrowIfFailed(mD3DDevice->CheckMultisampleQualityLevels(DXGI_FORMAT_R8G8B8A8_UNORM, 4, &m4xMsaaQuality));
 	assert(m4xMsaaQuality > 0);
 
-	CreateSwapChain();
+	D2D1CreateFactory(D2D1_FACTORY_TYPE_SINGLE_THREADED, IID_PPV_ARGS(&mD2DFactory));
+
 	OnResize();
 	return true;
 }
@@ -425,6 +431,12 @@ void D3DApplication::CreateSwapChain()
 	ThrowIfFailed(dxgiDevice->GetParent(IID_PPV_ARGS(&dxgiAdapter)));
 	ThrowIfFailed(dxgiAdapter->GetParent(IID_PPV_ARGS(&dxgiFactory)));
 	ThrowIfFailed(dxgiFactory->CreateSwapChain(mD3DDevice.Get(), &scDesc, &mSwapChain));
+	ComPtr<IDXGISurface> surface;
+	ThrowIfFailed(mSwapChain->GetBuffer(0, IID_PPV_ARGS(&surface)));
+	FLOAT dpiX, dpiY;
+	mD2DFactory->GetDesktopDpi(&dpiX, &dpiY);
+	D2D1_RENDER_TARGET_PROPERTIES props = D2D1::RenderTargetProperties(D2D1_RENDER_TARGET_TYPE_DEFAULT, D2D1::PixelFormat(DXGI_FORMAT_UNKNOWN, D2D1_ALPHA_MODE_PREMULTIPLIED), dpiX, dpiY);
+	ThrowIfFailed(mD2DFactory->CreateDxgiSurfaceRenderTarget(surface.Get(), &props, &mD2DRenderTarget));
 }
 
 void D3DApplication::FixFPS(Timer& timer)

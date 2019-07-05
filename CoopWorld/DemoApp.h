@@ -25,6 +25,8 @@ class DemoApp : public D3DApplication {
 		std::unique_ptr<RenderItem> mSphere;
 		std::unique_ptr<RenderItem> mGround;
 
+		ComPtr<ID2D1SolidColorBrush> mBrush;
+
 		Scene* mScene;
 		Camera* mCamera;
 };

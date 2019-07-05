@@ -19,6 +19,7 @@
 #pragma comment(lib, "d3dcompiler.lib")
 #pragma comment(lib, "D3D11.lib")
 #pragma comment(lib, "dxgi.lib")
+#pragma comment(lib, "d2d1.lib")
 
 class D3DApplication {
     protected:
@@ -89,11 +90,13 @@ class D3DApplication {
 		std::unique_ptr<Renderer> mRenderer;
 
 		ComPtr<IDXGISwapChain> mSwapChain;
-        ComPtr<ID3D11Device> mD3DDevice;
-        ComPtr<ID3D11DeviceContext> mD3DContext;
+        ComPtr<ID3D11Device1> mD3DDevice;
+        ComPtr<ID3D11DeviceContext1> mD3DContext;
         ComPtr<ID3D11Texture2D> mDepthStencilBuffer;
         ComPtr<ID3D11DepthStencilView> mDepthStencilView;
         ComPtr<ID3D11RenderTargetView> mRenderTargetView;
+		ComPtr<ID2D1Factory> mD2DFactory;
+		ComPtr<ID2D1RenderTarget> mD2DRenderTarget;
         D3D11_VIEWPORT mViewport;
 
 		std::thread mLogicThread;

@@ -34,6 +34,8 @@ bool DemoApp::Initialize()
     mScene->Lights[0].Direction = XMFLOAT3( 0.57735f, -0.57735f, 0.57735f );
     mScene->Bounds.Center = XMFLOAT3( 0.0f, 0.0f, 0.0f );
 	mScene->Bounds.Radius = sqrt(10 * 10 + 10 * 10);
+
+	mD2DRenderTarget->CreateSolidColorBrush(D2D1::ColorF(0.0f, 1.0f, 0.0f, 1.0f), &mBrush);
     return true;
 }
 
@@ -100,7 +102,9 @@ void DemoApp::Draw( const Timer& dt )
 	mRenderer->RenderThis(mGround.get());
 	mRenderer->StartDrawProcess();
 	XMFLOAT3 pos = mCamera->GetLook();
-	mRenderer->GetFontManager()->DrawFont(mD3DContext.Get(), L"Consolas", std::to_wstring(pos.x)+L","+std::to_wstring(pos.y)+L","+std::to_wstring(pos.z), 36.0f, 0.0f, 0.0f, 0XFFFFFFFF);
-	mRenderer->GetFontManager()->DrawFont(mD3DContext.Get(), L"Consolas", std::to_wstring(mTPS), 36.0f, 0.0f, 36.0f, 0XFFFFFFFF);
+	mD2DRenderTarget->BeginDraw();
+	D2D1_RECT_F rect = D2D1::RectF(0.0f, 0.0f, 100.0f, 100.0f);
+	mD2DRenderTarget->FillRectangle(rect, mBrush.Get());
+	mD2DRenderTarget->EndDraw();
     ThrowIfFailed( mSwapChain->Present( 0, 0 ) );
 }

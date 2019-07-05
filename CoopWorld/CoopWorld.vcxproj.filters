@@ -189,7 +189,6 @@
     <None Include="color.hlsl">
       <Filter>着色器</Filter>
     </None>
-    <None Include="packages.config" />
     <None Include="basic.hlsl">
       <Filter>着色器</Filter>
     </None>
@@ -215,6 +214,7 @@
     <None Include="resources\terrain.obj">
       <Filter>资源</Filter>
     </None>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="resources\reimu.DDS">

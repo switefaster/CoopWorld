@@ -19,7 +19,7 @@ void FontManager::DrawFont( ID3D11DeviceContext* context, const std::wstring& fo
     if ( mWrappers.count( font ) <= 0 )
     {
         ComPtr<IFW1FontWrapper> newWrapper;
-        mFW1Factory->CreateFontWrapper( mD3DDevice, font.c_str(), &newWrapper );
+        ThrowIfFailed(mFW1Factory->CreateFontWrapper( mD3DDevice, font.c_str(), &newWrapper ));
         wrapper = newWrapper.Get();
         mWrappers[font] = wrapper;
     }

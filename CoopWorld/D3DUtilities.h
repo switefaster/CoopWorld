@@ -4,7 +4,8 @@
 #define _D3D_UTILITIES_H_
 
 #include <dxgi.h>
-#include <d3d11.h>
+#include <d3d11_4.h>
+#include <d2d1.h>
 #include <DirectXMath.h>
 #include <DirectXColors.h>
 #include <string>
