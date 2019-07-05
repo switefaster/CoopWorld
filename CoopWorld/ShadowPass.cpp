@@ -1,26 +1,24 @@
 #include "ShadowPass.h"
 
+#include "D3DApplication.h"
+
 ShadowPass::ShadowPass(ID3D11Device* device, UINT width, UINT height) :
 	mShadowMap(std::make_unique<ShadowMap>(device, width, height))
 {
 }
 
-std::string ShadowPass::GetGBufferName()
+void ShadowPass::DoRender(ID3D11DeviceContext* context, const std::vector<RenderItem*>& renderItems)
 {
-	return "shadow";
-}
-
-void ShadowPass::DoRender(ID3D11DeviceContext* context, const std::vector<RenderItem*>& renderItems, Renderer* renderer)
-{
+	BuildShadowTransform(D3DApplication::GetInstance()->GetRenderer());
 	mShadowMap->BindDsvAndNullRtv(context);
-	ShadowEffect* shadowFX = renderer->GetFXMan()->ShadowFX.get();
-	StateManager* stateMan = renderer->GetStateMan();
+	ShadowEffect* shadowFX = D3DApplication::GetInstance()->GetRenderer()->GetFXManager()->ShadowFX.get();
+	StateManager* stateMan = D3DApplication::GetInstance()->GetRenderer()->GetStateManager();
 	context->RSSetState(stateMan->SlopeScaledBiasRasterizer.Get());
-	context->PSSetSamplers(0, 1, stateMan->ComparisonSampler.GetAddressOf());
+	context->PSSetSamplers(0, 1, stateMan->LinearSampler.GetAddressOf());
+	XMMATRIX VP = XMLoadFloat4x4(&mLightVP);
 	for (auto& v : renderItems)
 	{
 		XMMATRIX W = v->BuildWorldMatrix();
-		XMMATRIX VP = XMLoadFloat4x4(&mLightVP);
 		shadowFX->SetLightWVP(XMMatrixMultiplyTranspose(W, VP));
 		shadowFX->SetTexTransform(XMMatrixTranspose(v->GetTexTransform()));
 		if (v->GetMesh()->HasTexture())
@@ -76,9 +74,9 @@ void ShadowPass::BuildShadowTransform(Renderer* renderer)
 	mLightVP = mShadowTransform = Identity4x4;
 }
 
-bool ShadowPass::ShareBuffer()
+std::string ShadowPass::GetID() const
 {
-	return false;
+	return "shadow";
 }
 
 ID3D11ShaderResourceView* ShadowPass::GetSRV() const

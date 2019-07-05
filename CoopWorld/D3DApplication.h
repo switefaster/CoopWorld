@@ -14,6 +14,7 @@
 
 #include "Timer.h"
 #include "D3DUtilities.h"
+#include "Renderer.h"
 
 #pragma comment(lib, "d3dcompiler.lib")
 #pragma comment(lib, "D3D11.lib")
@@ -40,6 +41,8 @@ class D3DApplication {
         ID3D11RenderTargetView* GetRtv() const;
         ID3D11DepthStencilView* GetDsv() const;
         XMFLOAT4 GetClearColor() const;
+
+		Renderer* GetRenderer();
 
         int Run();
 
@@ -83,7 +86,9 @@ class D3DApplication {
         bool m4xMsaa = false;
         UINT m4xMsaaQuality = 0;
 
-        ComPtr<IDXGISwapChain> mSwapChain;
+		std::unique_ptr<Renderer> mRenderer;
+
+		ComPtr<IDXGISwapChain> mSwapChain;
         ComPtr<ID3D11Device> mD3DDevice;
         ComPtr<ID3D11DeviceContext> mD3DContext;
         ComPtr<ID3D11Texture2D> mDepthStencilBuffer;

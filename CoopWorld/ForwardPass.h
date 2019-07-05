@@ -10,9 +10,11 @@ class ForwardPass :
 	public RenderPass
 {
 public:
-	virtual std::string GetGBufferName() override;
-	virtual void DoRender(ID3D11DeviceContext* context, const std::vector<RenderItem*>& renderItems, Renderer* renderer) override;
-	virtual bool ShareBuffer() override;
+	ForwardPass() = default;
+	~ForwardPass() = default;
+
+	virtual void DoRender(ID3D11DeviceContext* context, const std::vector<RenderItem*>& renderItems) override;
+	virtual std::string GetID() const override;
 };
 
 #endif

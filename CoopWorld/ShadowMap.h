@@ -8,7 +8,7 @@
 class ShadowMap {
     public:
         ShadowMap( ID3D11Device* device, UINT width, UINT height );
-        ~ShadowMap() = default;
+		~ShadowMap() = default;
         ShadowMap( const ShadowMap& rhs ) = delete;
         ShadowMap& operator=( const ShadowMap& rhs ) = delete;
 

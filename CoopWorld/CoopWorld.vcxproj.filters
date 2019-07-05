@@ -209,6 +209,12 @@
       <Filter>资源</Filter>
     </None>
     <None Include="ClassDiagram.cd" />
+    <None Include="resources\terrain.mtl">
+      <Filter>资源</Filter>
+    </None>
+    <None Include="resources\terrain.obj">
+      <Filter>资源</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="resources\reimu.DDS">

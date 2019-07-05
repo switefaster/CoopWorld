@@ -25,8 +25,6 @@ class DemoApp : public D3DApplication {
 		std::unique_ptr<RenderItem> mSphere;
 		std::unique_ptr<RenderItem> mGround;
 
-		std::unique_ptr<Renderer> mRenderer;
-
 		Scene* mScene;
 		Camera* mCamera;
 };

@@ -15,7 +15,9 @@ class DXException {
         std::wstring ToString();
 
         HRESULT ErrCode = S_OK;
+#if defined(DEBUG) || defined(_DEBUG)
 		boost::stacktrace::stacktrace StackTrace;
+#endif
 };
 
 #endif

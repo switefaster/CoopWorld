@@ -216,6 +216,7 @@ copy resources\ "$(outdir)resources"</Command>
   <ItemGroup>
     <None Include="resources\plate.mtl" />
     <None Include="resources\sphere.mtl" />
+    <None Include="resources\terrain.mtl" />
     <None Include="shadow.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Geometry</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">4.0</ShaderModel>
@@ -239,6 +240,11 @@ copy resources\ "$(outdir)resources"</Command>
   <ItemGroup>
     <Image Include="resources\reimu.DDS" />
     <Image Include="resources\sphere_uv.DDS" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resources\terrain.obj">
+      <FileType>Document</FileType>
+    </None>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
