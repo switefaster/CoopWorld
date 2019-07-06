@@ -1,6 +1,7 @@
 #include "DemoApp.h"
 
 #include "MeshLoader.hpp"
+#include "DemoGuiScreen.h"
 #include <algorithm>
 
 DemoApp::DemoApp( HINSTANCE hInstance ) :
@@ -89,11 +90,16 @@ void DemoApp::Update( const Timer& dt )
     {
         mCamera->Pitch( dt.Delta() * -0.39 );
     }
+
+	if (D3DUtilities::IsKeyDown('G'))
+	{
+		OpenGUI(mMainGui ? nullptr : new DemoGuiScreen(mD2DDrawer.get()));
+	}
 	mSphere->Rotate(0.0f, dt.Delta() * 0.39f, 0.0f);
     mCamera->UpdateViewMatrix();
 }
 
-void DemoApp::Draw( const Timer& dt )
+void DemoApp::DrawScene( const Timer& dt )
 {
     assert( mD3DContext != nullptr );
     assert( mSwapChain != nullptr );
@@ -101,10 +107,4 @@ void DemoApp::Draw( const Timer& dt )
 	mRenderer->RenderThis(mSphere.get());
 	mRenderer->RenderThis(mGround.get());
 	mRenderer->StartDrawProcess();
-	XMFLOAT3 pos = mCamera->GetLook();
-	mD2DRenderTarget->BeginDraw();
-	D2D1_RECT_F rect = D2D1::RectF(0.0f, 0.0f, 100.0f, 100.0f);
-	mD2DRenderTarget->FillRectangle(rect, mBrush.Get());
-	mD2DRenderTarget->EndDraw();
-    ThrowIfFailed( mSwapChain->Present( 0, 0 ) );
 }

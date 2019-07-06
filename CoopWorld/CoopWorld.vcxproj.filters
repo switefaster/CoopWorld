@@ -51,6 +51,12 @@
     <Filter Include="资源">
       <UniqueIdentifier>{8ce91bf0-29e7-478f-bd47-07d0c419ab2f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="源文件\Component\Render\Pass">
+      <UniqueIdentifier>{559d33e5-2d27-4f1b-9b97-7cd91e1ceedd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Component\Render\Pass">
+      <UniqueIdentifier>{35dcad58-0db9-4100-8ef4-8b7ce825e4cc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AppEntry.cpp">
@@ -89,9 +95,6 @@
     <ClCompile Include="Camera.cpp">
       <Filter>源文件\Component</Filter>
     </ClCompile>
-    <ClCompile Include="FontManager.cpp">
-      <Filter>源文件\Component</Filter>
-    </ClCompile>
     <ClCompile Include="ShadowMap.cpp">
       <Filter>源文件\Component</Filter>
     </ClCompile>
@@ -110,10 +113,19 @@
     <ClCompile Include="Renderer.cpp">
       <Filter>源文件\Component\Render</Filter>
     </ClCompile>
+    <ClCompile Include="D2DDrawer.cpp">
+      <Filter>源文件\Component\Render</Filter>
+    </ClCompile>
     <ClCompile Include="ShadowPass.cpp">
-      <Filter>源文件</Filter>
+      <Filter>源文件\Component\Render\Pass</Filter>
     </ClCompile>
     <ClCompile Include="ForwardPass.cpp">
+      <Filter>源文件\Component\Render\Pass</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiScreen.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="DemoGuiScreen.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -157,9 +169,6 @@
     <ClInclude Include="MeshLoader.hpp">
       <Filter>头文件\Util</Filter>
     </ClInclude>
-    <ClInclude Include="FontManager.h">
-      <Filter>头文件\Component</Filter>
-    </ClInclude>
     <ClInclude Include="ShadowMap.h">
       <Filter>头文件\Component</Filter>
     </ClInclude>
@@ -178,10 +187,19 @@
     <ClInclude Include="StateManager.h">
       <Filter>头文件\Component</Filter>
     </ClInclude>
-    <ClInclude Include="ShadowPass.h">
-      <Filter>头文件</Filter>
+    <ClInclude Include="D2DDrawer.h">
+      <Filter>头文件\Component\Render</Filter>
     </ClInclude>
     <ClInclude Include="ForwardPass.h">
+      <Filter>头文件\Component\Render\Pass</Filter>
+    </ClInclude>
+    <ClInclude Include="ShadowPass.h">
+      <Filter>头文件\Component\Render\Pass</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiScreen.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="DemoGuiScreen.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

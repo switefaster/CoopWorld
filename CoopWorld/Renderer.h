@@ -6,7 +6,6 @@
 #include "RenderItem.h"
 #include "D3DUtilities.h"
 #include "EffectManager.h"
-#include "FontManager.h"
 #include "Texture.h"
 #include "Camera.h"
 #include "StateManager.h"
@@ -57,7 +56,6 @@ class Renderer {
 		StateManager* GetStateManager();
 		EffectManager* GetFXManager();
 		TextureManager* GetTextureManager();
-		FontManager* GetFontManager();
 		Scene* GetScene();
 		Camera* GetCamera();
 
@@ -74,7 +72,6 @@ class Renderer {
 		std::unique_ptr<EffectManager> mEffectManager;
 		std::unique_ptr<StateManager> mStateManager;
 		std::unique_ptr<TextureManager> mTextureManager;
-		std::unique_ptr<FontManager> mFontManager;
 
 		std::vector<RenderItem*> mItemsToDraw;
 };

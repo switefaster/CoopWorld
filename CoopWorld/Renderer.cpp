@@ -8,7 +8,6 @@ Renderer::Renderer( ID3D11Device* device, ID3D11DeviceContext* context ) :
 	mEffectManager(std::make_unique<EffectManager>(device)),
 	mStateManager(std::make_unique<StateManager>(device)),
 	mTextureManager(std::make_unique<TextureManager>(device)),
-	mFontManager(std::make_unique<FontManager>(device)),
 	mCamera(std::make_unique<Camera>()),
 	mScene(std::make_unique<Scene>()),
 	mRenderPasses(GetPasses())
@@ -60,11 +59,6 @@ EffectManager* Renderer::GetFXManager()
 TextureManager* Renderer::GetTextureManager()
 {
 	return mTextureManager.get();
-}
-
-FontManager* Renderer::GetFontManager()
-{
-	return mFontManager.get();
 }
 
 Scene* Renderer::GetScene()

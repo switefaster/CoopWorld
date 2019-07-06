@@ -6,6 +6,7 @@
 #include <dxgi.h>
 #include <d3d11_4.h>
 #include <d2d1.h>
+#include <dwrite.h>
 #include <DirectXMath.h>
 #include <DirectXColors.h>
 #include <string>
@@ -52,6 +53,10 @@ class D3DUtilities {
         HRESULT hr__ = (statement); \
         if(FAILED(hr__)) { throw DXException(hr__); } \
     }
+#endif
+
+#ifndef TextLayoutUnlimitedPosition
+#define TextLayoutUnlimitedPosition(X, Y, width, height) D2D1::RectF(X, Y, width, height)
 #endif
 
 #endif

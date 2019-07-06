@@ -15,11 +15,14 @@
 #include "Timer.h"
 #include "D3DUtilities.h"
 #include "Renderer.h"
+#include "D2DDrawer.h"
+#include "Gui.h"
 
 #pragma comment(lib, "d3dcompiler.lib")
 #pragma comment(lib, "D3D11.lib")
 #pragma comment(lib, "dxgi.lib")
 #pragma comment(lib, "d2d1.lib")
+#pragma comment(lib, "dwrite.lib")
 
 class D3DApplication {
     protected:
@@ -44,6 +47,12 @@ class D3DApplication {
         XMFLOAT4 GetClearColor() const;
 
 		Renderer* GetRenderer();
+		D2DDrawer* GetD2DDrawer();
+
+		D2D1_RECT_F GetScreenRect() const;
+
+		POINT GetMousePos();
+		void OpenGUI(Gui* newGui);
 
         int Run();
 
@@ -53,7 +62,9 @@ class D3DApplication {
     protected:
         virtual void OnResize();
         virtual void Update( const Timer& dt ) = 0;
-        virtual void Draw( const Timer& dt ) = 0;
+        void Draw( const Timer& dt );
+		void DrawGui();
+		virtual void DrawScene( const Timer& dt) = 0;
 
         virtual void OnMouseDown( WPARAM mouseState, int x, int y );
         virtual void OnMouseUp( WPARAM mouseState, int x, int y );
@@ -88,6 +99,9 @@ class D3DApplication {
         UINT m4xMsaaQuality = 0;
 
 		std::unique_ptr<Renderer> mRenderer;
+		std::unique_ptr<D2DDrawer> mD2DDrawer;
+
+		std::unique_ptr<Gui> mMainGui;
 
 		ComPtr<IDXGISwapChain> mSwapChain;
         ComPtr<ID3D11Device1> mD3DDevice;
@@ -98,6 +112,8 @@ class D3DApplication {
 		ComPtr<ID2D1Factory> mD2DFactory;
 		ComPtr<ID2D1RenderTarget> mD2DRenderTarget;
         D3D11_VIEWPORT mViewport;
+
+		POINT mMousePos;
 
 		std::thread mLogicThread;
 

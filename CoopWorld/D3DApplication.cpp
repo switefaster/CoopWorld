@@ -86,6 +86,26 @@ Renderer* D3DApplication::GetRenderer()
 	return mRenderer.get();
 }
 
+D2DDrawer* D3DApplication::GetD2DDrawer()
+{
+	return mD2DDrawer.get();
+}
+
+D2D1_RECT_F D3DApplication::GetScreenRect() const
+{
+	return D2D1::RectF(0.0f, 0.0f, static_cast<float>(mClientWidth), static_cast<float>(mClientHeight));
+}
+
+POINT D3DApplication::GetMousePos()
+{
+	return mMousePos;
+}
+
+void D3DApplication::OpenGUI(Gui* newGui)
+{
+	mMainGui.reset(newGui);
+}
+
 int D3DApplication::Run()
 {
 	MSG msg = { 0 };
@@ -157,6 +177,7 @@ bool D3DApplication::Initialize()
 	}
 	OnResize();
 	mRenderer = std::make_unique<Renderer>(mD3DDevice.Get(), mD3DContext.Get());
+	mD2DDrawer = std::make_unique<D2DDrawer>(mD2DFactory.Get(), mD2DRenderTarget.Get());
 	return true;
 }
 
@@ -315,10 +336,32 @@ void D3DApplication::OnResize()
 	mViewport.MinDepth = 0.0f;
 	mViewport.MaxDepth = 1.0f;
 	mD3DContext->RSSetViewports(1, &mViewport);
+	if (mD2DDrawer) {
+		mD2DDrawer->ResizedResources(mD2DRenderTarget.Get());
+	}
+}
+
+void D3DApplication::Draw(const Timer& dt)
+{
+	DrawScene(dt);
+	DrawGui();
+	ThrowIfFailed(mSwapChain->Present(0, 0));
+}
+
+void D3DApplication::DrawGui()
+{
+	if (mMainGui)
+	{
+		mMainGui->Render(mMousePos.x, mMousePos.y);
+	}
 }
 
 void D3DApplication::OnMouseDown(WPARAM mouseState, int x, int y)
 {
+	if (mMainGui)
+	{
+		mMainGui->OnClick(x, y);
+	}
 }
 
 void D3DApplication::OnMouseUp(WPARAM mouseState, int x, int y)
@@ -327,6 +370,8 @@ void D3DApplication::OnMouseUp(WPARAM mouseState, int x, int y)
 
 void D3DApplication::OnMouseMove(WPARAM mouseState, int x, int y)
 {
+	mMousePos.x = x;
+	mMousePos.y = y;
 }
 
 bool D3DApplication::InitWindow()

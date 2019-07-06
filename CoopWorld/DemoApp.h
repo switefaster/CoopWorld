@@ -17,7 +17,7 @@ class DemoApp : public D3DApplication {
         bool Initialize() override;
         void OnResize() override;
         void Update( const Timer& dt ) override;
-        void Draw( const Timer& dt ) override;
+        void DrawScene( const Timer& dt ) override;
 
     private:
         std::unique_ptr<Mesh> mSphereMesh;
