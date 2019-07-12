@@ -27,6 +27,8 @@ class DemoApp : public D3DApplication {
 
 		ComPtr<ID2D1SolidColorBrush> mBrush;
 
+		bool mPrevGKeyState = false;
+
 		Scene* mScene;
 		Camera* mCamera;
 };

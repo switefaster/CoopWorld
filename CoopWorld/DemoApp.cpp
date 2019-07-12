@@ -90,12 +90,20 @@ void DemoApp::Update( const Timer& dt )
     {
         mCamera->Pitch( dt.Delta() * -0.39 );
     }
-
-	if (D3DUtilities::IsKeyDown('G'))
+	bool currGKeyState;
+	if (currGKeyState = D3DUtilities::IsKeyDown('G'))
 	{
-		OpenGUI(mMainGui ? nullptr : new DemoGuiScreen(mD2DDrawer.get()));
+		if (!mPrevGKeyState)
+		{
+			OpenGUI(mMainGui ? nullptr : new DemoGuiScreen(mD2DDrawer.get()));
+			mPrevGKeyState = currGKeyState;
+		}
 	}
-	mSphere->Rotate(0.0f, dt.Delta() * 0.39f, 0.0f);
+	else
+	{
+		mPrevGKeyState = false;
+	}
+	mGround->Rotate(0.0f, dt.Delta() * 0.39f, 0.0f);
     mCamera->UpdateViewMatrix();
 }
 

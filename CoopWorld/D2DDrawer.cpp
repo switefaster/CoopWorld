@@ -12,12 +12,14 @@ void D2DDrawer::ResizedResources(ID2D1RenderTarget* renderTarget)
 	mD2DRenderTarget = renderTarget;
 }
 
-void D2DDrawer::DrawText(const std::wstring& fontFamily, const D2D1_RECT_F& layout, const D2D1_COLOR_F& color, float fontSize, const std::wstring& content)
+void D2DDrawer::DrawText(const std::wstring& fontFamily, const D2D1_COLOR_F& color, const D2D1_RECT_F& layout, const std::wstring& content, float fontSize, DWRITE_FONT_WEIGHT weight, DWRITE_FONT_STYLE style, DWRITE_FONT_STRETCH stretch)
 {
 	mD2DRenderTarget->BeginDraw();
-	ComPtr<IDWriteTextFormat> textFormat;
-	ThrowIfFailed(mDWFactory->CreateTextFormat(fontFamily.c_str(), nullptr, DWRITE_FONT_WEIGHT_NORMAL, DWRITE_FONT_STYLE_NORMAL, DWRITE_FONT_STRETCH_NORMAL, fontSize, L"en-US", &textFormat));
-	mD2DRenderTarget->DrawTextW(content.c_str(), content.length(), textFormat.Get(), layout, GetSolidColorBrush(color));
+	ComPtr<IDWriteTextFormat> format;
+	mDWFactory->CreateTextFormat(fontFamily.c_str(), nullptr, weight, style, stretch, fontSize, L"en-us", &format);
+	format->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_CENTER);
+	format->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_CENTER);
+	mD2DRenderTarget->DrawTextW(content.c_str(), content.length(), format.Get(), layout, GetSolidColorBrush(color), D2D1_DRAW_TEXT_OPTIONS_CLIP);
 	ThrowIfFailed(mD2DRenderTarget->EndDraw());
 }
 

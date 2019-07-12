@@ -9,13 +9,23 @@
 class Button
 {
 public:
-	Button(D2DDrawer* d2ddrawer, std::function<void(float, float)> render, std::function<void(float, float)> onclick);
+	Button(D2DDrawer* d2ddrawer, std::function<void(float, float, Button*)> render, std::function<void(float, float, Button*)> onclick, float x, float y, float width, float height);
 
-	std::function<void(float, float)> Render;
-	std::function<void(float, float)> OnClick;
+	std::function<void(float, float, Button*)> Render;
+	std::function<void(float, float, Button*)> OnClick;
 
-private:
+	bool IsMouseInBox(float mouseX, float mouseY);
+	void DrawInnerText(const std::wstring& text, const std::wstring& fontFamily, float fontSize, const D2D1_COLOR_F& color);
+
+	D2D1_RECT_F GetSelfRect();
+
+protected:
 	D2DDrawer* mD2DDrawer;
+
+	float mX;
+	float mY;
+	float mWidth;
+	float mHeight;
 };
 
 class GuiScreen :
