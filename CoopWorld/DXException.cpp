@@ -4,9 +4,9 @@
 #include <sstream>
 
 DXException::DXException( HRESULT hr ) :
-    ErrCode( hr ),
+    ErrCode( hr )
 #if defined(DEBUG) || defined(_DEBUG)
-	StackTrace(boost::stacktrace::stacktrace())
+	,StackTrace(boost::stacktrace::stacktrace())
 #endif
 {
 }
