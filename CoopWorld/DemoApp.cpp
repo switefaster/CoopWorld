@@ -103,7 +103,7 @@ void DemoApp::Update( const Timer& dt )
 	{
 		mPrevGKeyState = false;
 	}
-	mGround->Rotate(0.0f, dt.Delta() * 0.39f, 0.0f);
+	//mGround->Rotate(0.0f, dt.Delta() * 0.39f, 0.0f);
     mCamera->UpdateViewMatrix();
 }
 

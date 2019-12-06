@@ -122,11 +122,23 @@
     <ClCompile Include="ForwardPass.cpp">
       <Filter>源文件\Component\Render\Pass</Filter>
     </ClCompile>
+    <ClCompile Include="DefferedBuffer.cpp">
+      <Filter>源文件\Component</Filter>
+    </ClCompile>
     <ClCompile Include="GuiScreen.cpp">
-      <Filter>源文件</Filter>
+      <Filter>源文件\Component\Gui</Filter>
     </ClCompile>
     <ClCompile Include="DemoGuiScreen.cpp">
-      <Filter>源文件</Filter>
+      <Filter>源文件\Component\Gui</Filter>
+    </ClCompile>
+    <ClCompile Include="DefferedEffect.cpp">
+      <Filter>源文件\Component\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="CompositionPass.cpp">
+      <Filter>源文件\Component\Render\Pass</Filter>
+    </ClCompile>
+    <ClCompile Include="DefferedRenderPass.cpp">
+      <Filter>源文件\Component\Render\Pass</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -196,11 +208,23 @@
     <ClInclude Include="ShadowPass.h">
       <Filter>头文件\Component\Render\Pass</Filter>
     </ClInclude>
-    <ClInclude Include="GuiScreen.h">
-      <Filter>头文件</Filter>
+    <ClInclude Include="DefferedBuffer.h">
+      <Filter>头文件\Component</Filter>
     </ClInclude>
     <ClInclude Include="DemoGuiScreen.h">
-      <Filter>头文件</Filter>
+      <Filter>头文件\Component\Gui</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiScreen.h">
+      <Filter>头文件\Component\Gui</Filter>
+    </ClInclude>
+    <ClInclude Include="DefferedEffect.h">
+      <Filter>头文件\Component\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="CompositionPass.h">
+      <Filter>头文件\Component\Render\Pass</Filter>
+    </ClInclude>
+    <ClInclude Include="DefferedRenderPass.h">
+      <Filter>头文件\Component\Render\Pass</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -233,6 +257,12 @@
       <Filter>资源</Filter>
     </None>
     <None Include="packages.config" />
+    <None Include="deffered_shader.hlsl">
+      <Filter>着色器</Filter>
+    </None>
+    <None Include="composition.hlsl">
+      <Filter>着色器</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="resources\reimu.DDS">

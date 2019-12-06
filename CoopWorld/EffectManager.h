@@ -7,6 +7,7 @@
 #include "ColorEffect.h"
 #include "BasicEffect.h"
 #include "ShadowEffect.h"
+#include "DefferedEffect.h"
 
 class EffectManager {
     public:
@@ -16,6 +17,7 @@ class EffectManager {
         std::unique_ptr<ColorEffect> ColorFX;
         std::unique_ptr<BasicEffect> BasicFX;
 		std::unique_ptr<ShadowEffect> ShadowFX;
+		std::unique_ptr<DefferedEffect> DefferedFX;
 };
 
 #endif

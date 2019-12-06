@@ -17,9 +17,9 @@ struct IL_VECTOR_HASH
 
         for ( std::size_t i = 0; i < v.size(); i++ )
         {
-            boost::hash_combine( hash, std::hash_value( i ) );
-            boost::hash_combine( hash, std::hash_value( v[i].SemanticName ) );
-            boost::hash_combine( hash, std::hash_value( v[i].AlignedByteOffset ) );
+            boost::hash_combine( hash, boost::hash_value( i ) );
+            boost::hash_combine( hash, boost::hash_value( v[i].SemanticName ) );
+            boost::hash_combine( hash, boost::hash_value( v[i].AlignedByteOffset ) );
         }
 
         return hash;

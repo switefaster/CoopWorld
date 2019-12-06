@@ -42,14 +42,14 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -138,9 +138,13 @@ copy resources\ "$(outdir)resources"</Command>
     <ClCompile Include="BasicEffect.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="ColorEffect.cpp" />
+    <ClCompile Include="CompositionPass.cpp" />
     <ClCompile Include="D2DDrawer.cpp" />
     <ClCompile Include="D3DApplication.cpp" />
     <ClCompile Include="D3DUtilities.cpp" />
+    <ClCompile Include="DefferedBuffer.cpp" />
+    <ClCompile Include="DefferedEffect.cpp" />
+    <ClCompile Include="DefferedRenderPass.cpp" />
     <ClCompile Include="DemoApp.cpp" />
     <ClCompile Include="DemoGuiScreen.cpp" />
     <ClCompile Include="DXException.cpp" />
@@ -162,9 +166,13 @@ copy resources\ "$(outdir)resources"</Command>
     <ClInclude Include="BasicEffect.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="ColorEffect.h" />
+    <ClInclude Include="CompositionPass.h" />
     <ClInclude Include="D2DDrawer.h" />
     <ClInclude Include="D3DApplication.h" />
     <ClInclude Include="D3DUtilities.h" />
+    <ClInclude Include="DefferedBuffer.h" />
+    <ClInclude Include="DefferedEffect.h" />
+    <ClInclude Include="DefferedRenderPass.h" />
     <ClInclude Include="DemoApp.h" />
     <ClInclude Include="DemoGuiScreen.h" />
     <ClInclude Include="DXException.h" />
@@ -247,6 +255,20 @@ copy resources\ "$(outdir)resources"</Command>
   </ItemGroup>
   <ItemGroup>
     <None Include="resources\terrain.obj">
+      <FileType>Document</FileType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="deffered_shader.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <FileType>Document</FileType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="composition.hlsl">
       <FileType>Document</FileType>
     </None>
   </ItemGroup>
